@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.software.ysu.dao.IntroductionMapper">
+  <resultMap id="BaseResultMap" type="org.software.ysu.pojo.Introduction">
+    <id column="intro_id" jdbcType="INTEGER" property="introId" />
+    <result column="intro_title" jdbcType="VARCHAR" property="introTitle" />
+    <result column="intro_createTime" jdbcType="TIMESTAMP" property="introCreatetime" />
+    <result column="intro_updateTime" jdbcType="TIMESTAMP" property="introUpdatetime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="intro_relname" jdbcType="VARCHAR" property="introRelname" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="intro_url" jdbcType="VARCHAR" property="introUrl" />
+    <result column="intro_picdefault" jdbcType="VARCHAR" property="introPicdefault" />
+    <result column="intro_picbig" jdbcType="VARCHAR" property="introPicbig" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.software.ysu.pojo.IntroductionWithBLOBs">
+    <result column="intro_des" jdbcType="LONGVARCHAR" property="introDes" />
+    <result column="intro_body" jdbcType="LONGVARCHAR" property="introBody" />
+    <result column="intro_reldes" jdbcType="LONGVARCHAR" property="introReldes" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    intro_id, intro_title, intro_createTime, intro_updateTime, user_id, user_name, intro_relname, 
+    subject_id, intro_url, intro_picdefault, intro_picbig
+  </sql>
+  <sql id="Blob_Column_List">
+    intro_des, intro_body, intro_reldes
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="org.software.ysu.pojo.IntroductionExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from introduction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="org.software.ysu.pojo.IntroductionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from introduction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from introduction
+    where intro_id = #{introId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from introduction
+    where intro_id = #{introId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.software.ysu.pojo.IntroductionExample">
+    delete from introduction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.software.ysu.pojo.IntroductionWithBLOBs">
+    insert into introduction (intro_id, intro_title, intro_createTime, 
+      intro_updateTime, user_id, user_name, 
+      intro_relname, subject_id, intro_url, 
+      intro_picdefault, intro_picbig, intro_des, 
+      intro_body, intro_reldes)
+    values (#{introId,jdbcType=INTEGER}, #{introTitle,jdbcType=VARCHAR}, #{introCreatetime,jdbcType=TIMESTAMP}, 
+      #{introUpdatetime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{introRelname,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER}, #{introUrl,jdbcType=VARCHAR}, 
+      #{introPicdefault,jdbcType=VARCHAR}, #{introPicbig,jdbcType=VARCHAR}, #{introDes,jdbcType=LONGVARCHAR}, 
+      #{introBody,jdbcType=LONGVARCHAR}, #{introReldes,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.software.ysu.pojo.IntroductionWithBLOBs">
+    insert into introduction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="introId != null">
+        intro_id,
+      </if>
+      <if test="introTitle != null">
+        intro_title,
+      </if>
+      <if test="introCreatetime != null">
+        intro_createTime,
+      </if>
+      <if test="introUpdatetime != null">
+        intro_updateTime,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="introRelname != null">
+        intro_relname,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="introUrl != null">
+        intro_url,
+      </if>
+      <if test="introPicdefault != null">
+        intro_picdefault,
+      </if>
+      <if test="introPicbig != null">
+        intro_picbig,
+      </if>
+      <if test="introDes != null">
+        intro_des,
+      </if>
+      <if test="introBody != null">
+        intro_body,
+      </if>
+      <if test="introReldes != null">
+        intro_reldes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="introId != null">
+        #{introId,jdbcType=INTEGER},
+      </if>
+      <if test="introTitle != null">
+        #{introTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="introCreatetime != null">
+        #{introCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introUpdatetime != null">
+        #{introUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="introRelname != null">
+        #{introRelname,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="introUrl != null">
+        #{introUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introPicdefault != null">
+        #{introPicdefault,jdbcType=VARCHAR},
+      </if>
+      <if test="introPicbig != null">
+        #{introPicbig,jdbcType=VARCHAR},
+      </if>
+      <if test="introDes != null">
+        #{introDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introBody != null">
+        #{introBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introReldes != null">
+        #{introReldes,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.software.ysu.pojo.IntroductionExample" resultType="java.lang.Long">
+    select count(*) from introduction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update introduction
+    <set>
+      <if test="record.introId != null">
+        intro_id = #{record.introId,jdbcType=INTEGER},
+      </if>
+      <if test="record.introTitle != null">
+        intro_title = #{record.introTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introCreatetime != null">
+        intro_createTime = #{record.introCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.introUpdatetime != null">
+        intro_updateTime = #{record.introUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introRelname != null">
+        intro_relname = #{record.introRelname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectId != null">
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.introUrl != null">
+        intro_url = #{record.introUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introPicdefault != null">
+        intro_picdefault = #{record.introPicdefault,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introPicbig != null">
+        intro_picbig = #{record.introPicbig,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introDes != null">
+        intro_des = #{record.introDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.introBody != null">
+        intro_body = #{record.introBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.introReldes != null">
+        intro_reldes = #{record.introReldes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update introduction
+    set intro_id = #{record.introId,jdbcType=INTEGER},
+      intro_title = #{record.introTitle,jdbcType=VARCHAR},
+      intro_createTime = #{record.introCreatetime,jdbcType=TIMESTAMP},
+      intro_updateTime = #{record.introUpdatetime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      intro_relname = #{record.introRelname,jdbcType=VARCHAR},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      intro_url = #{record.introUrl,jdbcType=VARCHAR},
+      intro_picdefault = #{record.introPicdefault,jdbcType=VARCHAR},
+      intro_picbig = #{record.introPicbig,jdbcType=VARCHAR},
+      intro_des = #{record.introDes,jdbcType=LONGVARCHAR},
+      intro_body = #{record.introBody,jdbcType=LONGVARCHAR},
+      intro_reldes = #{record.introReldes,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update introduction
+    set intro_id = #{record.introId,jdbcType=INTEGER},
+      intro_title = #{record.introTitle,jdbcType=VARCHAR},
+      intro_createTime = #{record.introCreatetime,jdbcType=TIMESTAMP},
+      intro_updateTime = #{record.introUpdatetime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      intro_relname = #{record.introRelname,jdbcType=VARCHAR},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      intro_url = #{record.introUrl,jdbcType=VARCHAR},
+      intro_picdefault = #{record.introPicdefault,jdbcType=VARCHAR},
+      intro_picbig = #{record.introPicbig,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.software.ysu.pojo.IntroductionWithBLOBs">
+    update introduction
+    <set>
+      <if test="introTitle != null">
+        intro_title = #{introTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="introCreatetime != null">
+        intro_createTime = #{introCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introUpdatetime != null">
+        intro_updateTime = #{introUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="introRelname != null">
+        intro_relname = #{introRelname,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="introUrl != null">
+        intro_url = #{introUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introPicdefault != null">
+        intro_picdefault = #{introPicdefault,jdbcType=VARCHAR},
+      </if>
+      <if test="introPicbig != null">
+        intro_picbig = #{introPicbig,jdbcType=VARCHAR},
+      </if>
+      <if test="introDes != null">
+        intro_des = #{introDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introBody != null">
+        intro_body = #{introBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introReldes != null">
+        intro_reldes = #{introReldes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where intro_id = #{introId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.software.ysu.pojo.IntroductionWithBLOBs">
+    update introduction
+    set intro_title = #{introTitle,jdbcType=VARCHAR},
+      intro_createTime = #{introCreatetime,jdbcType=TIMESTAMP},
+      intro_updateTime = #{introUpdatetime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      intro_relname = #{introRelname,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      intro_url = #{introUrl,jdbcType=VARCHAR},
+      intro_picdefault = #{introPicdefault,jdbcType=VARCHAR},
+      intro_picbig = #{introPicbig,jdbcType=VARCHAR},
+      intro_des = #{introDes,jdbcType=LONGVARCHAR},
+      intro_body = #{introBody,jdbcType=LONGVARCHAR},
+      intro_reldes = #{introReldes,jdbcType=LONGVARCHAR}
+    where intro_id = #{introId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.software.ysu.pojo.Introduction">
+    update introduction
+    set intro_title = #{introTitle,jdbcType=VARCHAR},
+      intro_createTime = #{introCreatetime,jdbcType=TIMESTAMP},
+      intro_updateTime = #{introUpdatetime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      intro_relname = #{introRelname,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      intro_url = #{introUrl,jdbcType=VARCHAR},
+      intro_picdefault = #{introPicdefault,jdbcType=VARCHAR},
+      intro_picbig = #{introPicbig,jdbcType=VARCHAR}
+    where intro_id = #{introId,jdbcType=INTEGER}
+  </update>
+</mapper>

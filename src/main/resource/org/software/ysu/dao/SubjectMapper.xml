@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.software.ysu.dao.SubjectMapper">
+  <resultMap id="BaseResultMap" type="org.software.ysu.pojo.Subject">
+    <id column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+    <result column="subject_teacher" jdbcType="VARCHAR" property="subjectTeacher" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.software.ysu.pojo.Subject">
+    <result column="subject_student" jdbcType="LONGVARCHAR" property="subjectStudent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    subject_id, subject_name, subject_teacher
+  </sql>
+  <sql id="Blob_Column_List">
+    subject_student
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="org.software.ysu.pojo.SubjectExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from subject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="org.software.ysu.pojo.SubjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from subject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from subject
+    where subject_id = #{subjectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from subject
+    where subject_id = #{subjectId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.software.ysu.pojo.SubjectExample">
+    delete from subject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.software.ysu.pojo.Subject">
+    insert into subject (subject_id, subject_name, subject_teacher, 
+      subject_student)
+    values (#{subjectId,jdbcType=INTEGER}, #{subjectName,jdbcType=VARCHAR}, #{subjectTeacher,jdbcType=VARCHAR}, 
+      #{subjectStudent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.software.ysu.pojo.Subject">
+    insert into subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="subjectName != null">
+        subject_name,
+      </if>
+      <if test="subjectTeacher != null">
+        subject_teacher,
+      </if>
+      <if test="subjectStudent != null">
+        subject_student,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectName != null">
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectTeacher != null">
+        #{subjectTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectStudent != null">
+        #{subjectStudent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.software.ysu.pojo.SubjectExample" resultType="java.lang.Long">
+    select count(*) from subject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update subject
+    <set>
+      <if test="record.subjectId != null">
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjectName != null">
+        subject_name = #{record.subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectTeacher != null">
+        subject_teacher = #{record.subjectTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectStudent != null">
+        subject_student = #{record.subjectStudent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update subject
+    set subject_id = #{record.subjectId,jdbcType=INTEGER},
+      subject_name = #{record.subjectName,jdbcType=VARCHAR},
+      subject_teacher = #{record.subjectTeacher,jdbcType=VARCHAR},
+      subject_student = #{record.subjectStudent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update subject
+    set subject_id = #{record.subjectId,jdbcType=INTEGER},
+      subject_name = #{record.subjectName,jdbcType=VARCHAR},
+      subject_teacher = #{record.subjectTeacher,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.software.ysu.pojo.Subject">
+    update subject
+    <set>
+      <if test="subjectName != null">
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectTeacher != null">
+        subject_teacher = #{subjectTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectStudent != null">
+        subject_student = #{subjectStudent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where subject_id = #{subjectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.software.ysu.pojo.Subject">
+    update subject
+    set subject_name = #{subjectName,jdbcType=VARCHAR},
+      subject_teacher = #{subjectTeacher,jdbcType=VARCHAR},
+      subject_student = #{subjectStudent,jdbcType=LONGVARCHAR}
+    where subject_id = #{subjectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.software.ysu.pojo.Subject">
+    update subject
+    set subject_name = #{subjectName,jdbcType=VARCHAR},
+      subject_teacher = #{subjectTeacher,jdbcType=VARCHAR}
+    where subject_id = #{subjectId,jdbcType=INTEGER}
+  </update>
+</mapper>

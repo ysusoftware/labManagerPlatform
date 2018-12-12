@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.software.ysu.dao.LogoMapper">
+  <resultMap id="BaseResultMap" type="org.software.ysu.pojo.Logo">
+    <id column="logo_id" jdbcType="INTEGER" property="logoId" />
+    <result column="logo_des" jdbcType="VARCHAR" property="logoDes" />
+    <result column="logo_path" jdbcType="VARCHAR" property="logoPath" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    logo_id, logo_des, logo_path
+  </sql>
+  <select id="selectByExample" parameterType="org.software.ysu.pojo.LogoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from logo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from logo
+    where logo_id = #{logoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from logo
+    where logo_id = #{logoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.software.ysu.pojo.LogoExample">
+    delete from logo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.software.ysu.pojo.Logo">
+    insert into logo (logo_id, logo_des, logo_path
+      )
+    values (#{logoId,jdbcType=INTEGER}, #{logoDes,jdbcType=VARCHAR}, #{logoPath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.software.ysu.pojo.Logo">
+    insert into logo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logoId != null">
+        logo_id,
+      </if>
+      <if test="logoDes != null">
+        logo_des,
+      </if>
+      <if test="logoPath != null">
+        logo_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logoId != null">
+        #{logoId,jdbcType=INTEGER},
+      </if>
+      <if test="logoDes != null">
+        #{logoDes,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPath != null">
+        #{logoPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.software.ysu.pojo.LogoExample" resultType="java.lang.Long">
+    select count(*) from logo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update logo
+    <set>
+      <if test="record.logoId != null">
+        logo_id = #{record.logoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logoDes != null">
+        logo_des = #{record.logoDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logoPath != null">
+        logo_path = #{record.logoPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update logo
+    set logo_id = #{record.logoId,jdbcType=INTEGER},
+      logo_des = #{record.logoDes,jdbcType=VARCHAR},
+      logo_path = #{record.logoPath,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.software.ysu.pojo.Logo">
+    update logo
+    <set>
+      <if test="logoDes != null">
+        logo_des = #{logoDes,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPath != null">
+        logo_path = #{logoPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where logo_id = #{logoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.software.ysu.pojo.Logo">
+    update logo
+    set logo_des = #{logoDes,jdbcType=VARCHAR},
+      logo_path = #{logoPath,jdbcType=VARCHAR}
+    where logo_id = #{logoId,jdbcType=INTEGER}
+  </update>
+</mapper>
