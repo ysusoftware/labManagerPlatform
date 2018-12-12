@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.software.ysu.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="org.software.ysu.pojo.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_authority" jdbcType="INTEGER" property="userAuthority" />
+    <result column="user_role" jdbcType="INTEGER" property="userRole" />
+    <result column="user_level" jdbcType="INTEGER" property="userLevel" />
+    <result column="user_img" jdbcType="VARCHAR" property="userImg" />
+    <result column="user_lastDate" jdbcType="TIMESTAMP" property="userLastdate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.software.ysu.pojo.User">
+    <result column="user_des" jdbcType="LONGVARCHAR" property="userDes" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_account, user_password, user_name, user_authority, user_role, user_level, 
+    user_img, user_lastDate
+  </sql>
+  <sql id="Blob_Column_List">
+    user_des
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="org.software.ysu.pojo.UserExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="org.software.ysu.pojo.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.software.ysu.pojo.UserExample">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.software.ysu.pojo.User">
+    insert into user (user_id, user_account, user_password, 
+      user_name, user_authority, user_role, 
+      user_level, user_img, user_lastDate, 
+      user_des)
+    values (#{userId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userAuthority,jdbcType=INTEGER}, #{userRole,jdbcType=INTEGER}, 
+      #{userLevel,jdbcType=INTEGER}, #{userImg,jdbcType=VARCHAR}, #{userLastdate,jdbcType=TIMESTAMP}, 
+      #{userDes,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.software.ysu.pojo.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userAuthority != null">
+        user_authority,
+      </if>
+      <if test="userRole != null">
+        user_role,
+      </if>
+      <if test="userLevel != null">
+        user_level,
+      </if>
+      <if test="userImg != null">
+        user_img,
+      </if>
+      <if test="userLastdate != null">
+        user_lastDate,
+      </if>
+      <if test="userDes != null">
+        user_des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAuthority != null">
+        #{userAuthority,jdbcType=INTEGER},
+      </if>
+      <if test="userRole != null">
+        #{userRole,jdbcType=INTEGER},
+      </if>
+      <if test="userLevel != null">
+        #{userLevel,jdbcType=INTEGER},
+      </if>
+      <if test="userImg != null">
+        #{userImg,jdbcType=VARCHAR},
+      </if>
+      <if test="userLastdate != null">
+        #{userLastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDes != null">
+        #{userDes,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.software.ysu.pojo.UserExample" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userAccount != null">
+        user_account = #{record.userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null">
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAuthority != null">
+        user_authority = #{record.userAuthority,jdbcType=INTEGER},
+      </if>
+      <if test="record.userRole != null">
+        user_role = #{record.userRole,jdbcType=INTEGER},
+      </if>
+      <if test="record.userLevel != null">
+        user_level = #{record.userLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.userImg != null">
+        user_img = #{record.userImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userLastdate != null">
+        user_lastDate = #{record.userLastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userDes != null">
+        user_des = #{record.userDes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_account = #{record.userAccount,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_authority = #{record.userAuthority,jdbcType=INTEGER},
+      user_role = #{record.userRole,jdbcType=INTEGER},
+      user_level = #{record.userLevel,jdbcType=INTEGER},
+      user_img = #{record.userImg,jdbcType=VARCHAR},
+      user_lastDate = #{record.userLastdate,jdbcType=TIMESTAMP},
+      user_des = #{record.userDes,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_account = #{record.userAccount,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_authority = #{record.userAuthority,jdbcType=INTEGER},
+      user_role = #{record.userRole,jdbcType=INTEGER},
+      user_level = #{record.userLevel,jdbcType=INTEGER},
+      user_img = #{record.userImg,jdbcType=VARCHAR},
+      user_lastDate = #{record.userLastdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.software.ysu.pojo.User">
+    update user
+    <set>
+      <if test="userAccount != null">
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAuthority != null">
+        user_authority = #{userAuthority,jdbcType=INTEGER},
+      </if>
+      <if test="userRole != null">
+        user_role = #{userRole,jdbcType=INTEGER},
+      </if>
+      <if test="userLevel != null">
+        user_level = #{userLevel,jdbcType=INTEGER},
+      </if>
+      <if test="userImg != null">
+        user_img = #{userImg,jdbcType=VARCHAR},
+      </if>
+      <if test="userLastdate != null">
+        user_lastDate = #{userLastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDes != null">
+        user_des = #{userDes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.software.ysu.pojo.User">
+    update user
+    set user_account = #{userAccount,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_authority = #{userAuthority,jdbcType=INTEGER},
+      user_role = #{userRole,jdbcType=INTEGER},
+      user_level = #{userLevel,jdbcType=INTEGER},
+      user_img = #{userImg,jdbcType=VARCHAR},
+      user_lastDate = #{userLastdate,jdbcType=TIMESTAMP},
+      user_des = #{userDes,jdbcType=LONGVARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.software.ysu.pojo.User">
+    update user
+    set user_account = #{userAccount,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_authority = #{userAuthority,jdbcType=INTEGER},
+      user_role = #{userRole,jdbcType=INTEGER},
+      user_level = #{userLevel,jdbcType=INTEGER},
+      user_img = #{userImg,jdbcType=VARCHAR},
+      user_lastDate = #{userLastdate,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
