@@ -13,7 +13,7 @@ public class DESUtils {
 	/**
 	 * i told you the key_string is wrong
 	 */
-	public static String KEY_STRING="ysu2018";
+	public static String KEY_STRING="114514";
 	static{
 		try {
 			KeyGenerator generator = KeyGenerator.getInstance("DES");
@@ -75,11 +75,5 @@ public class DESUtils {
 	
 	
 	public static void main(String[] args){
-		String username="root";
-		String password="ysu2018";
-		System.out.println(encode(username));
-		System.out.println(encode(password));//显示加密结果
-//		System.out.println(decode("bJFTW4dSt8w="));
-//		System.out.println(decode("Qab8LX19npA="));//显示解密结果
 	}
 }
