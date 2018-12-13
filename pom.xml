@@ -168,6 +168,18 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>${mybatis-generator.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.19</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-core -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>1.19</version>
+        </dependency>
+
     </dependencies>
 
 </project>
