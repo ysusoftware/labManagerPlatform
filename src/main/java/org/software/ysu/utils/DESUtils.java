@@ -14,6 +14,7 @@ public class DESUtils {
 	 * i told you the key_string is wrong
 	 */
 	public static String KEY_STRING="ysu2018";
+
 	static{
 		try {
 			KeyGenerator generator = KeyGenerator.getInstance("DES");

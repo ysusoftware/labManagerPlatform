@@ -1,11 +1,11 @@
+
 package org.software.ysu.controller;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
-import org.software.ysu.pojo.Category;
-import org.software.ysu.pojo.User;
-import org.software.ysu.pojo.UserExample;
+import org.software.ysu.pojo.*;
 import org.software.ysu.service.Interface.ICategoryService;
+import org.software.ysu.service.Interface.IPhotographService;
 import org.software.ysu.service.Interface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+
+import org.software.ysu.service.Interface.IUserService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -24,19 +32,21 @@ import java.util.List;
  * @Description spring的起步
  * @Version 1.0
  **/
-@Controller
+@RestController
 public class helloworld {
     @Autowired
     ICategoryService categoryService;
     @Autowired
     IUserService userService;
+    @Autowired
+    IPhotographService photographService;
     @RequestMapping("/hello.do")
     public String hello(HttpServletRequest request) {
         request.setAttribute("testString", "i am shigetora");
         return "list";
     }
 
-    @ResponseBody
+
     @RequestMapping("testUser.do")
     public List<User> testUser() {
         List<User>users=userService.showUser(new UserExample());
@@ -54,17 +64,20 @@ public class helloworld {
         return "ImgTest";
     }
     @ResponseBody
-    @RequestMapping("imgOnload.do")
-    public String imgTest(MultipartFile img) {
-        Client client=new Client();
-        System.out.println(img.getOriginalFilename());
-        WebResource webResource= client.resource("http://47.105.187.18/pictures/logo/"+img.getOriginalFilename());
-        System.out.println("http://47.105.187.18/pictures/logo/"+img.getOriginalFilename());
-        try {
-            webResource.put(String.class,img.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
+    @RequestMapping("PhotoOnload.do")
+    public String imgTest(MultipartFile img, Photograph photo) {
+        System.out.println(photo.getPhotoDes());
+        String fileUrl=fileController.uploadFile("achievement",img);
+        photo.setPhotoUrl(fileUrl);
+        int r=photographService.addPhoto(photo);
+        System.out.println(r+"------------");
+        return "success";
+    }
+    @RequestMapping(value = "testUpload.do",method = RequestMethod.POST)
+    public layuiResponse testUpload(@RequestParam(value = "file") MultipartFile logoTest){
+
+        String fileUrl=fileController.uploadFile("logo",logoTest);
+        layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
+        return layuiResponse;
     }
 }
