@@ -13,7 +13,7 @@ public class DESUtils {
 	/**
 	 * i told you the key_string is wrong
 	 */
-	public static String KEY_STRING="114514";
+	public static String KEY_STRING="ysu2018";
 	static{
 		try {
 			KeyGenerator generator = KeyGenerator.getInstance("DES");
@@ -26,6 +26,7 @@ public class DESUtils {
 			e.printStackTrace();
 		}
 	}
+	//加密
 	public static String encode(String in){
 		Base64Encoder encoder=new Base64Encoder();
 		String out=null;
@@ -49,6 +50,7 @@ public class DESUtils {
 		}
 		return out;
 	}
+	//解密
 	public static String decode(String in){
 		Base64Encoder encoder=new Base64Encoder();
 		String out=null;
@@ -75,5 +77,6 @@ public class DESUtils {
 	
 	
 	public static void main(String[] args){
+		System.out.println(encode("root"));
 	}
 }

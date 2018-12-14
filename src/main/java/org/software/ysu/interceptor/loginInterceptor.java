@@ -21,10 +21,11 @@ public class loginInterceptor implements HandlerInterceptor {
         if(url.contains("managerLogin")){
             return true;
         }
-        String uid=httpServletRequest.getParameter("uid");
-        if(!loginController.loginMap.isEmpty()){
-            String authority=loginController.loginMap.get(uid);
+        String labUserCookie=httpServletRequest.getParameter("labUserCookie");
+        if(!loginController.AdminMap.isEmpty()){
+            String authority=loginController.AdminMap.get(labUserCookie);
             //pass
+            return true;
 
 
         }

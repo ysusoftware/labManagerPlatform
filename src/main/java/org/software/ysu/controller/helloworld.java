@@ -1,6 +1,8 @@
 
 package org.software.ysu.controller;
 
+import org.software.ysu.dao.PhotographMapper;
+import org.software.ysu.pojo.Photograph;
 import org.software.ysu.pojo.User;
 import org.software.ysu.pojo.UserExample;
 import org.software.ysu.pojo.layuiResponse;
@@ -25,6 +27,7 @@ public class helloworld {
     IUserService userService;
 
 
+
     @RequestMapping("testUser.do")
     public List<User> testUser() {
         List<User>users=userService.showUser(new UserExample());
@@ -37,4 +40,13 @@ public class helloworld {
         layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
         return layuiResponse;
     }
+//    @RequestMapping(value = "testPhoto.do")
+//    public String testInsertPhoto(){
+//        Photograph photograph=new Photograph();
+//        photograph.setPhotoDes("zzzz");
+//        photograph.setPhotoUrl("url");
+//        photograph.setSubjectId(1);
+//        photographMapper.insert(photograph);
+//        return "success";
+//    }
 }

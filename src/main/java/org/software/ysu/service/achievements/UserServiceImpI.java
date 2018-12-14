@@ -1,5 +1,6 @@
 package org.software.ysu.service.achievements;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.software.ysu.dao.UserMapper;
 import org.software.ysu.pojo.User;
 import org.software.ysu.pojo.UserExample;
@@ -19,8 +20,9 @@ import java.util.List;
 public class UserServiceImpI implements IUserService {
     @Resource
     UserMapper userMapper;
+
     @Override
-    public int add(User user) {
+    public int addUser(User user) {
         userMapper.insertSelective(user);
         return 1;
     }
@@ -28,6 +30,20 @@ public class UserServiceImpI implements IUserService {
     @Override
     public List<User> showUser(UserExample userExample) {
         return userMapper.selectByExampleWithBLOBs(userExample);
+    }
+
+    @Override
+    public User loginUser(String username,String password) {
+        UserExample userExample=new UserExample();
+        String newPassword=DigestUtils.md5Hex(password);
+        userExample.createCriteria().andUserAccountEqualTo(username).andUserPasswordEqualTo(newPassword);
+        return userMapper.selectByExample(userExample).get(0);
+    }
+
+    @Override
+    public int updateUser(User user) {
+        userMapper.updateByPrimaryKeySelective(user);
+        return 1;
     }
 
 }
