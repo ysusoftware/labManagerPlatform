@@ -5,9 +5,7 @@
     <id column="material_id" jdbcType="INTEGER" property="materialId" />
     <result column="material_name" jdbcType="VARCHAR" property="materialName" />
     <result column="material_url" jdbcType="VARCHAR" property="materialUrl" />
-    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
-    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
-    <result column="material_pic" jdbcType="VARCHAR" property="materialPic" />
+    <result column="assort_id" jdbcType="INTEGER" property="assortId" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.software.ysu.pojo.Material">
     <result column="material_des" jdbcType="LONGVARCHAR" property="materialDes" />
@@ -71,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    material_id, material_name, material_url, category_id, category_name, material_pic
+    material_id, material_name, material_url, assort_id
   </sql>
   <sql id="Blob_Column_List">
     material_des
@@ -126,11 +124,9 @@
   </delete>
   <insert id="insert" parameterType="org.software.ysu.pojo.Material">
     insert into material (material_id, material_name, material_url, 
-      category_id, category_name, material_pic, 
-      material_des)
+      assort_id, material_des)
     values (#{materialId,jdbcType=INTEGER}, #{materialName,jdbcType=VARCHAR}, #{materialUrl,jdbcType=VARCHAR}, 
-      #{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{materialPic,jdbcType=VARCHAR}, 
-      #{materialDes,jdbcType=LONGVARCHAR})
+      #{assortId,jdbcType=INTEGER}, #{materialDes,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.software.ysu.pojo.Material">
     insert into material
@@ -144,14 +140,8 @@
       <if test="materialUrl != null">
         material_url,
       </if>
-      <if test="categoryId != null">
-        category_id,
-      </if>
-      <if test="categoryName != null">
-        category_name,
-      </if>
-      <if test="materialPic != null">
-        material_pic,
+      <if test="assortId != null">
+        assort_id,
       </if>
       <if test="materialDes != null">
         material_des,
@@ -167,14 +157,8 @@
       <if test="materialUrl != null">
         #{materialUrl,jdbcType=VARCHAR},
       </if>
-      <if test="categoryId != null">
-        #{categoryId,jdbcType=INTEGER},
-      </if>
-      <if test="categoryName != null">
-        #{categoryName,jdbcType=VARCHAR},
-      </if>
-      <if test="materialPic != null">
-        #{materialPic,jdbcType=VARCHAR},
+      <if test="assortId != null">
+        #{assortId,jdbcType=INTEGER},
       </if>
       <if test="materialDes != null">
         #{materialDes,jdbcType=LONGVARCHAR},
@@ -199,14 +183,8 @@
       <if test="record.materialUrl != null">
         material_url = #{record.materialUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.categoryId != null">
-        category_id = #{record.categoryId,jdbcType=INTEGER},
-      </if>
-      <if test="record.categoryName != null">
-        category_name = #{record.categoryName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.materialPic != null">
-        material_pic = #{record.materialPic,jdbcType=VARCHAR},
+      <if test="record.assortId != null">
+        assort_id = #{record.assortId,jdbcType=INTEGER},
       </if>
       <if test="record.materialDes != null">
         material_des = #{record.materialDes,jdbcType=LONGVARCHAR},
@@ -221,9 +199,7 @@
     set material_id = #{record.materialId,jdbcType=INTEGER},
       material_name = #{record.materialName,jdbcType=VARCHAR},
       material_url = #{record.materialUrl,jdbcType=VARCHAR},
-      category_id = #{record.categoryId,jdbcType=INTEGER},
-      category_name = #{record.categoryName,jdbcType=VARCHAR},
-      material_pic = #{record.materialPic,jdbcType=VARCHAR},
+      assort_id = #{record.assortId,jdbcType=INTEGER},
       material_des = #{record.materialDes,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -234,9 +210,7 @@
     set material_id = #{record.materialId,jdbcType=INTEGER},
       material_name = #{record.materialName,jdbcType=VARCHAR},
       material_url = #{record.materialUrl,jdbcType=VARCHAR},
-      category_id = #{record.categoryId,jdbcType=INTEGER},
-      category_name = #{record.categoryName,jdbcType=VARCHAR},
-      material_pic = #{record.materialPic,jdbcType=VARCHAR}
+      assort_id = #{record.assortId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -250,14 +224,8 @@
       <if test="materialUrl != null">
         material_url = #{materialUrl,jdbcType=VARCHAR},
       </if>
-      <if test="categoryId != null">
-        category_id = #{categoryId,jdbcType=INTEGER},
-      </if>
-      <if test="categoryName != null">
-        category_name = #{categoryName,jdbcType=VARCHAR},
-      </if>
-      <if test="materialPic != null">
-        material_pic = #{materialPic,jdbcType=VARCHAR},
+      <if test="assortId != null">
+        assort_id = #{assortId,jdbcType=INTEGER},
       </if>
       <if test="materialDes != null">
         material_des = #{materialDes,jdbcType=LONGVARCHAR},
@@ -269,9 +237,7 @@
     update material
     set material_name = #{materialName,jdbcType=VARCHAR},
       material_url = #{materialUrl,jdbcType=VARCHAR},
-      category_id = #{categoryId,jdbcType=INTEGER},
-      category_name = #{categoryName,jdbcType=VARCHAR},
-      material_pic = #{materialPic,jdbcType=VARCHAR},
+      assort_id = #{assortId,jdbcType=INTEGER},
       material_des = #{materialDes,jdbcType=LONGVARCHAR}
     where material_id = #{materialId,jdbcType=INTEGER}
   </update>
@@ -279,9 +245,7 @@
     update material
     set material_name = #{materialName,jdbcType=VARCHAR},
       material_url = #{materialUrl,jdbcType=VARCHAR},
-      category_id = #{categoryId,jdbcType=INTEGER},
-      category_name = #{categoryName,jdbcType=VARCHAR},
-      material_pic = #{materialPic,jdbcType=VARCHAR}
+      assort_id = #{assortId,jdbcType=INTEGER}
     where material_id = #{materialId,jdbcType=INTEGER}
   </update>
 </mapper>

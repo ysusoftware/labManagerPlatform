@@ -49,14 +49,9 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <table tableName="blog"></table>
-        <table tableName="category"></table>
-        <table tableName="introduction"></table>
-        <table tableName="logo"></table>
+
         <table tableName="material"></table>
-        <table tableName="photograph"></table>
-        <table tableName="subject"></table>
-        <table tableName="team"></table>
+        <table tableName="assort"></table>
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">
             <columnOverride column="" javaType="" />

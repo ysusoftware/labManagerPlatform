@@ -7,11 +7,7 @@ public class Material {
 
     private String materialUrl;
 
-    private Integer categoryId;
-
-    private String categoryName;
-
-    private String materialPic;
+    private Integer assortId;
 
     private String materialDes;
 
@@ -39,28 +35,12 @@ public class Material {
         this.materialUrl = materialUrl == null ? null : materialUrl.trim();
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Integer getAssortId() {
+        return assortId;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName == null ? null : categoryName.trim();
-    }
-
-    public String getMaterialPic() {
-        return materialPic;
-    }
-
-    public void setMaterialPic(String materialPic) {
-        this.materialPic = materialPic == null ? null : materialPic.trim();
+    public void setAssortId(Integer assortId) {
+        this.assortId = assortId;
     }
 
     public String getMaterialDes() {

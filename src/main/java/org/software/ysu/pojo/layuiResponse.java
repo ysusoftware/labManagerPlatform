@@ -1,11 +1,14 @@
 package org.software.ysu.pojo;
 
+import lombok.Data;
+
 /**
  * @author Erisu
  * @date 2018/12/13 10:53
  * @Description layuiResponse封装
  * @Version 1.0
  **/
+@Data
 public class layuiResponse {
     private String code;
     private String msg;
