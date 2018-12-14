@@ -13,7 +13,7 @@ public class DESUtils {
 	/**
 	 * i told you the key_string is wrong
 	 */
-	public static String KEY_STRING="114514";
+	public static String KEY_STRING="ysu2018";
 	static{
 		try {
 			KeyGenerator generator = KeyGenerator.getInstance("DES");
@@ -75,5 +75,7 @@ public class DESUtils {
 	
 	
 	public static void main(String[] args){
+		System.out.println(encode("root"));
+		System.out.println(encode("ysu2018"));
 	}
 }

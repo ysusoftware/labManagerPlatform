@@ -1,9 +1,8 @@
 
 package org.software.ysu.controller;
 
-import org.software.ysu.pojo.User;
-import org.software.ysu.pojo.UserExample;
-import org.software.ysu.pojo.layuiResponse;
+import org.software.ysu.dao.BlogMapper;
+import org.software.ysu.pojo.*;
 import org.software.ysu.service.Interface.IUserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,11 +22,17 @@ import java.util.List;
 public class helloworld {
     @Resource
     IUserService userService;
+    @Resource
+    BlogMapper blogMapper;
 
 
     @RequestMapping("testUser.do")
     public List<User> testUser() {
         List<User>users=userService.showUser(new UserExample());
+        BlogExample blogExample=new BlogExample();
+        blogExample.createCriteria().andBlogIdEqualTo(1);
+        List<BlogWithBLOBs> blogWithBLOBs = blogMapper.selectByExampleWithBLOBs(blogExample);
+        blogWithBLOBs.get(0).getBlogDes();
         return users;
     }
     @RequestMapping(value = "testUpload.do",method = RequestMethod.POST)
