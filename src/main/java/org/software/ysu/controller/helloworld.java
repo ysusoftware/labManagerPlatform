@@ -1,16 +1,15 @@
 
 package org.software.ysu.controller;
 
-import org.software.ysu.pojo.User;
-import org.software.ysu.pojo.UserExample;
-import org.software.ysu.pojo.layuiResponse;
+import org.software.ysu.pojo.*;
+import org.software.ysu.service.Interface.ICategoryService;
+import org.software.ysu.service.Interface.IPhotographService;
 import org.software.ysu.service.Interface.IUserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

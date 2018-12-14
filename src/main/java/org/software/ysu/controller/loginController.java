@@ -30,13 +30,13 @@ public class loginController {
     public static Map<String,String> AdminMap=new ConcurrentHashMap();
     public static Map<String,String> UserMap=new ConcurrentHashMap();
     @RequestMapping("quit.do")
-    public String quit(String uid){
-        AdminMap.remove(uid);
+    public String quit(String labUserCookie){
+        AdminMap.remove(labUserCookie);
         return "success";
     }
     @RequestMapping("nothing.do")
-    public String nothing(String uid){
-        return AdminMap.get(uid);
+    public String nothing(String labUserCookie){
+        return AdminMap.get(labUserCookie);
     }
     @RequestMapping("login.do")
     public String login(HttpServletRequest request, String username, String password, String kaptcha){
@@ -57,10 +57,10 @@ public class loginController {
                 //对权限通过encode加密
                 String authority=userEncode(user);
                 if(user.getUserAuthority()==1){
-                    AdminMap.put(user.getUserAccount(),user.getUserAuthority()+String.valueOf(authority));
+                    AdminMap.put(user.getUserAuthority()+String.valueOf(authority),user.getUserAccount());
                     return AdminMap.get(user.getUserAccount());
                 }else if(user.getUserAuthority()==0){
-                    UserMap.put(user.getUserAccount(),user.getUserAuthority()+String.valueOf(authority));
+                    UserMap.put(user.getUserAuthority()+String.valueOf(authority),user.getUserAccount());
                     return UserMap.get(user.getUserAccount());
                 }else{
                     return "fail";
