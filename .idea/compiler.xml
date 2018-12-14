@@ -9,5 +9,8 @@
         <module name="displayPlatform" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="displayPlatform" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
