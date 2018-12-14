@@ -59,8 +59,8 @@
     <mvc:interceptors>
         <!-- 多个拦截器，顺序执行 -->
         <mvc:interceptor>
-            <mvc:mapping path="/*.do"/>
-            <bean class="org.software.ysu.interceptor.adminInterceptor"></bean>
+            <mvc:mapping path="/**"/>
+            <bean class="org.software.ysu.interceptor.loginInterceptor"></bean>
         </mvc:interceptor>
 
     </mvc:interceptors>

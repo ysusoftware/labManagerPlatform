@@ -58,10 +58,10 @@ public class loginController {
                 String authority=userEncode(user);
                 if(user.getUserAuthority()==1){
                     AdminMap.put(user.getUserAuthority()+String.valueOf(authority),user.getUserAccount());
-                    return AdminMap.get(user.getUserAccount());
-                }else if(user.getUserAuthority()==0){
+                    return user.getUserAuthority()+String.valueOf(authority);
+                }else if(user.getUserAuthority()==2){
                     UserMap.put(user.getUserAuthority()+String.valueOf(authority),user.getUserAccount());
-                    return UserMap.get(user.getUserAccount());
+                    return user.getUserAuthority()+String.valueOf(authority);
                 }else{
                     return "fail";
                 }
