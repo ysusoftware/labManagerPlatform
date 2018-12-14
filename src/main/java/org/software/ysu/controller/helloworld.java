@@ -1,8 +1,6 @@
 
 package org.software.ysu.controller;
 
-import org.software.ysu.dao.PhotographMapper;
-import org.software.ysu.pojo.Photograph;
 import org.software.ysu.pojo.User;
 import org.software.ysu.pojo.UserExample;
 import org.software.ysu.pojo.layuiResponse;
@@ -23,8 +21,17 @@ import java.util.List;
  **/
 @RestController
 public class helloworld {
-    @Resource
+    @Autowired
+    ICategoryService categoryService;
+    @Autowired
     IUserService userService;
+    @Autowired
+    IPhotographService photographService;
+    @RequestMapping("/hello.do")
+    public String hello(HttpServletRequest request) {
+        request.setAttribute("testString", "i am shigetora");
+        return "list";
+    }
 
 
 
@@ -32,6 +39,27 @@ public class helloworld {
     public List<User> testUser() {
         List<User>users=userService.showUser(new UserExample());
         return users;
+    }
+    @ResponseBody
+    @RequestMapping("testCategory.do")
+    public List<Category> testCategory() {
+        String str="据";
+        List<Category> list=categoryService.selectCategory(str);
+        return list;
+    }
+    @RequestMapping("img.do")
+    public String img() {
+        return "ImgTest";
+    }
+    @ResponseBody
+    @RequestMapping("PhotoOnload.do")
+    public String imgTest(MultipartFile img, Photograph photo) {
+        System.out.println(photo.getPhotoDes());
+        String fileUrl=fileController.uploadFile("achievement",img);
+        photo.setPhotoUrl(fileUrl);
+        int r=photographService.addPhoto(photo);
+        System.out.println(r+"------------");
+        return "success";
     }
     @RequestMapping(value = "testUpload.do",method = RequestMethod.POST)
     public layuiResponse testUpload(@RequestParam(value = "file") MultipartFile logoTest){
