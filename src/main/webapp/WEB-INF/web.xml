@@ -78,7 +78,7 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>KaptchaServlet</servlet-name>
+        <servlet-name>Kaptcha</servlet-name>
         <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
         <init-param>
             <param-name>kaptcha.border</param-name>
@@ -118,7 +118,7 @@
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>KaptchaServlet</servlet-name>
+        <servlet-name>Kaptcha</servlet-name>
         <url-pattern>/kaptcha.jpg</url-pattern>
     </servlet-mapping>
 

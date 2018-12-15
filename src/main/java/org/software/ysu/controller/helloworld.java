@@ -3,13 +3,15 @@ package org.software.ysu.controller;
 
 import org.software.ysu.dao.BlogMapper;
 import org.software.ysu.pojo.*;
+import org.software.ysu.pojo.*;
+import org.software.ysu.service.Interface.ICategoryService;
+import org.software.ysu.service.Interface.IPhotographService;
 import org.software.ysu.service.Interface.IUserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -20,8 +22,18 @@ import java.util.List;
  **/
 @RestController
 public class helloworld {
-    @Resource
+    @Autowired
+    ICategoryService categoryService;
+    @Autowired
     IUserService userService;
+    @Autowired
+    IPhotographService photographService;
+    @RequestMapping("/hello.do")
+    public String hello(HttpServletRequest request) {
+        request.setAttribute("testString", "i am shigetora");
+        return "list";
+    }
+
     @Resource
     BlogMapper blogMapper;
 
@@ -35,6 +47,27 @@ public class helloworld {
         blogWithBLOBs.get(0).getBlogDes();
         return users;
     }
+    @ResponseBody
+    @RequestMapping("testCategory.do")
+    public List<Category> testCategory() {
+        String str="据";
+        List<Category> list=categoryService.selectCategory(str);
+        return list;
+    }
+    @RequestMapping("img.do")
+    public String img() {
+        return "ImgTest";
+    }
+    @ResponseBody
+    @RequestMapping("PhotoOnload.do")
+    public String imgTest(MultipartFile img, Photograph photo) {
+        System.out.println(photo.getPhotoDes());
+        String fileUrl=fileController.uploadFile("achievement",img);
+        photo.setPhotoUrl(fileUrl);
+        int r=photographService.addPhoto(photo);
+        System.out.println(r+"------------");
+        return "success";
+    }
     @RequestMapping(value = "testUpload.do",method = RequestMethod.POST)
     public layuiResponse testUpload(@RequestParam(value = "file") MultipartFile logoTest){
 
@@ -42,4 +75,13 @@ public class helloworld {
         layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
         return layuiResponse;
     }
+//    @RequestMapping(value = "testPhoto.do")
+//    public String testInsertPhoto(){
+//        Photograph photograph=new Photograph();
+//        photograph.setPhotoDes("zzzz");
+//        photograph.setPhotoUrl("url");
+//        photograph.setSubjectId(1);
+//        photographMapper.insert(photograph);
+//        return "success";
+//    }
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Description 登录拦截器
  * @Version 1.0
  **/
-public class loginInterceptor implements HandlerInterceptor {
+public class adminInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         System.out.println("进入拦截器");
@@ -21,14 +21,22 @@ public class loginInterceptor implements HandlerInterceptor {
         if(url.contains("managerLogin")){
             return true;
         }
-        String uid=httpServletRequest.getParameter("uid");
-        if(!loginController.loginMap.isEmpty()){
-            String authority=loginController.loginMap.get(uid);
-            //pass
+        String labUserCookie=httpServletRequest.getParameter("labUserCookie");
+        if(!loginController.AdminMap.isEmpty()){
+            String authority=loginController.AdminMap.get(labUserCookie);
+            if(authority!=null){
+                return true;
+            }else{
+                System.out.println("拦截a");
+                httpServletResponse.getWriter().print("{\"info\":\"404\"}");
+                return false;
+            }
 
-
+        }else{
+            httpServletResponse.getWriter().print("{\"info\":\"404\"}");
+            //httpServletResponse.sendRedirect("http://127.0.0.1:8020/exp/teacher/login/teacherlogin.html");
+            return false;
         }
-        return false;
     }
 
 

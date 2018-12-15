@@ -1,38 +1,33 @@
 package org.software.ysu.controller;
 
+import org.software.ysu.pojo.Team;
 import org.software.ysu.pojo.TeamExample;
 import org.software.ysu.pojo.TeamWithBLOBs;
 import org.software.ysu.pojo.layuiResponse;
 import org.software.ysu.service.Interface.ITeamService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("team")
 public class teamController {
     @Resource
     ITeamService teamService;
 
     @RequestMapping("getTeam.do")
-    public layuiResponse getTeam(){
+    public Team getTeam(){
         TeamExample teamExample = new TeamExample();
-        teamExample.createCriteria().andTeamIdEqualTo(2);
         List<TeamWithBLOBs> teams = teamService.getTeam(teamExample);
-        layuiResponse layuiResponse = new layuiResponse("0","",teams);
-        return layuiResponse;
+//        layuiResponse layuiResponse = new layuiResponse("0","",teams);
+        return teams.get(0);
     }
 
     @RequestMapping("addTeam.do")
     public String addTeam(TeamWithBLOBs team){
-//        team.setTeamAim("ok");
-//        team.setTeamPhone("ok");
-//        team.setTeamLocation("ok");
-//        team.setTeamMemberdes("ok");
-//        team.setTeamDes("ok");
-//        team.setTeamName("ok");
-//        team.setTeamEmail("ok");
         teamService.addTeam(team);
         return "success";
     }
@@ -48,6 +43,6 @@ public class teamController {
     @RequestMapping("updateTeam.do")
     public String updateTeam(TeamWithBLOBs team){
         teamService.updateTeam(team);
-        return "redirect:getTeam.do";
+        return "success";
     }
 }

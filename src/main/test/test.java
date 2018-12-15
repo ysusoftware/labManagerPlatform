@@ -37,4 +37,6 @@ public class test {
         myBatisGenerator.generate(null);
         System.out.println("生成完成");
     }
+
+
 }

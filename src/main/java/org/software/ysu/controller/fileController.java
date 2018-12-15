@@ -19,7 +19,7 @@ import java.util.Random;
  * @Version 1.0
  **/
 public class fileController {
-    static public String serverLogoUrl="http://47.105.187.18/pictures/";
+    static public String serverPicUrl="http://47.105.187.18/pictures/";
     static public String uploadFile(String baseUrl,MultipartFile file) {
         System.out.println(file.getOriginalFilename());
         //定义文件名
@@ -42,7 +42,7 @@ public class fileController {
         fileName=fileName.insert(0,baseUrl+'/');
         System.out.println(fileName.toString());
         Client client = new Client();
-        WebResource webresource = client.resource(serverLogoUrl + fileName.toString());
+        WebResource webresource = client.resource(serverPicUrl + fileName.toString());
 
         try {
             webresource.put(String.class, file.getBytes());

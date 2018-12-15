@@ -30,6 +30,7 @@
         <aspectj.version>1.8.13</aspectj.version>
         <page.version>4.1.6</page.version>
         <mybatis-generator.version>1.3.5</mybatis-generator.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
     </properties>
     <dependencies>
         <dependency>
@@ -167,6 +168,12 @@
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
             <version>${mybatis-generator.version}</version>
+        </dependency>
+        <!-- md5加密 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
     </dependencies>
 

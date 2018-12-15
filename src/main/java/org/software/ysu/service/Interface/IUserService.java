@@ -12,6 +12,8 @@ import java.util.List;
  * @Version 1.0
  **/
 public interface IUserService {
-    public int add(User user); //添加user
+    public int addUser(User user); //添加user
     public List<User> showUser(UserExample userExample); //显示user
+    public User loginUser(String username,String password);//登录
+    public int updateUser(User user);//修改user
 }

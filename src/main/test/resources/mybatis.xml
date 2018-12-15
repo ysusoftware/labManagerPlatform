@@ -12,8 +12,8 @@
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
             connectionURL="jdbc:mysql://47.105.187.18:3306/ysushowData?useUnicode=true&amp;characterEncoding=utf8"
-            userId="123456"
-            password="654321">
+            userId="root"
+            password="ysu2018">
         </jdbcConnection>
         <!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
             connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg" 
