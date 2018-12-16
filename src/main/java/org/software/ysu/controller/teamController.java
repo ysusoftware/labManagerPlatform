@@ -41,8 +41,9 @@ public class teamController {
     }
 
     @RequestMapping("updateTeam.do")
-    public String updateTeam(TeamWithBLOBs team){
-        teamService.updateTeam(team);
+    public String updateTeam(TeamWithBLOBs teams){
+        System.out.println("teams="+teams.toString());
+        teamService.updateTeam(teams);
         return "success";
     }
 }

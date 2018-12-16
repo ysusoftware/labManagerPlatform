@@ -40,4 +40,10 @@ public class subjectController {
         tableResponse tableResponse=new tableResponse("0","",subjects.size(),subjectPages);
         return tableResponse;
     }
+    @RequestMapping("subjectsEdit.do")
+    public String editSubjects(Subject subject){
+        System.out.println(subject.toString());
+        subjectService.updateSubject(subject);
+        return "success";
+    }
 }
