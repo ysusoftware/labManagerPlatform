@@ -19,4 +19,13 @@ public class layuiResponse {
         this.msg = msg;
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "layuiResponse{" +
+                "code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }
