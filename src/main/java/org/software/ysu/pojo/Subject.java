@@ -40,4 +40,14 @@ public class Subject {
     public void setSubjectStudent(String subjectStudent) {
         this.subjectStudent = subjectStudent == null ? null : subjectStudent.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "subjectId=" + subjectId +
+                ", subjectName='" + subjectName + '\'' +
+                ", subjectTeacher='" + subjectTeacher + '\'' +
+                ", subjectStudent='" + subjectStudent + '\'' +
+                '}';
+    }
 }

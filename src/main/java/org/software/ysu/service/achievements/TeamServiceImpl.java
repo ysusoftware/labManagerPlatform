@@ -25,7 +25,7 @@ public class TeamServiceImpl implements ITeamService {
 
     @Override
     public int updateTeam(TeamWithBLOBs team) {
-        return teamMapper.updateByExampleSelective(team,new TeamExample());
+        return teamMapper.updateByPrimaryKeySelective(team);
     }
 
     @Override
