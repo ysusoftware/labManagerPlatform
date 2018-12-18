@@ -20,4 +20,12 @@ public class TeamWithBLOBs extends Team {
     public void setTeamMemberdes(String teamMemberdes) {
         this.teamMemberdes = teamMemberdes == null ? null : teamMemberdes.trim();
     }
+
+    @Override
+    public String toString() {
+        return "TeamWithBLOBs{" +
+                "teamDes='" + teamDes + '\'' +
+                ", teamMemberdes='" + teamMemberdes + '\'' +
+                '}';
+    }
 }

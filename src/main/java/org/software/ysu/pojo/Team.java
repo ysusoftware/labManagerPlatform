@@ -60,4 +60,16 @@ public class Team {
     public void setTeamEmail(String teamEmail) {
         this.teamEmail = teamEmail == null ? null : teamEmail.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "teamId=" + teamId +
+                ", teamName='" + teamName + '\'' +
+                ", teamAim='" + teamAim + '\'' +
+                ", teamLocation='" + teamLocation + '\'' +
+                ", teamPhone='" + teamPhone + '\'' +
+                ", teamEmail='" + teamEmail + '\'' +
+                '}';
+    }
 }

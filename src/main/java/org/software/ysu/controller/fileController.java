@@ -19,8 +19,9 @@ import java.util.Random;
  * @Version 1.0
  **/
 public class fileController {
-    static public String serverPicUrl="http://47.105.187.18/pictures/";
-    static public String uploadFile(String baseUrl,MultipartFile file) {
+    static public String serverPicUrl = "http://47.105.187.18/pictures/";
+
+    static public String uploadFile(String baseUrl, MultipartFile file) {
         System.out.println(file.getOriginalFilename());
         //定义文件名
         StringBuilder fileName = new StringBuilder();
@@ -39,7 +40,7 @@ public class fileController {
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
         //最后拼接文件的扩展名
         fileName.append(".").append(extension);
-        fileName=fileName.insert(0,baseUrl+'/');
+        fileName = fileName.insert(0, baseUrl + '/');
         System.out.println(fileName.toString());
         Client client = new Client();
         WebResource webresource = client.resource(serverPicUrl + fileName.toString());
@@ -51,5 +52,11 @@ public class fileController {
             e.printStackTrace();
         }
         return fileName.toString();
+    }
+
+    static public void delFile(String url) {
+        Client client = new Client();
+        WebResource webresource = client.resource(serverPicUrl + url);
+        webresource.delete(serverPicUrl + url);
     }
 }

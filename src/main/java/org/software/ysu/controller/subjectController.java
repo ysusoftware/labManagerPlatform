@@ -25,7 +25,7 @@ public class subjectController {
 
     @RequestMapping("subjectsShow.do")
     public tableResponse getSubjects(Page page) {
-        System.out.println("context="+page.getContext());
+        System.out.println("page="+page.toString());
         SubjectExample subjectExample = new SubjectExample();
         if (page.getContext() != null){
             subjectExample.createCriteria().andSubjectNameLike("%" + page.getContext() + "%");
@@ -38,6 +38,18 @@ public class subjectController {
             subjectPages.add(subjects.get(i));
         }
         tableResponse tableResponse=new tableResponse("0","",subjects.size(),subjectPages);
+        System.out.println(tableResponse.toString());
         return tableResponse;
+    }
+    @RequestMapping("subjectsEdit.do")
+    public String editSubjects(Subject subject){
+        System.out.println(subject.toString());
+        subjectService.updateSubject(subject);
+        return "success";
+    }
+    @RequestMapping("subjectsAll.do")
+    public List<Subject>getallSubjects(){
+        List<Subject>subjects=subjectService.showSubjects(new SubjectExample());
+        return subjects;
     }
 }

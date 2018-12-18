@@ -56,18 +56,22 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
     <!--拦截器 -->
-    <!--<mvc:interceptors>-->
-        <!--&lt;!&ndash; 多个拦截器，顺序执行 &ndash;&gt;-->
+    <mvc:interceptors>
+        <!-- 多个拦截器，顺序执行 -->
         <!--<mvc:interceptor>-->
             <!--<mvc:mapping path="/**"/>-->
-            <!--<bean class="org.software.ysu.interceptor.loginInterceptor"></bean>-->
+            <!--<bean class="org.software.ysu.interceptor.AccessInterceptor"></bean>-->
         <!--</mvc:interceptor>-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.software.ysu.interceptor.loginInterceptor"></bean>
+        </mvc:interceptor>
 
-    <!--</mvc:interceptors>-->
+    </mvc:interceptors>
     <context:component-scan base-package="org.software.ysu.controller"></context:component-scan>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="suffix" value=".html"/>
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
     </bean>
 

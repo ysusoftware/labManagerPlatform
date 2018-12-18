@@ -78,7 +78,7 @@ public class loginController {
 
     }
     public String userEncode(User user){
-        String temp=user.getUserAuthority()+"Erisu";
+        String temp=user.getUserAccount()+"Erisu";
         return DESUtils.encode(temp);
     }
 

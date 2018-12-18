@@ -30,4 +30,13 @@ public class IntroductionWithBLOBs extends Introduction {
     public void setIntroReldes(String introReldes) {
         this.introReldes = introReldes == null ? null : introReldes.trim();
     }
+
+    @Override
+    public String toString() {
+        return "IntroductionWithBLOBs{" +
+                "introDes='" + introDes + '\'' +
+                ", introBody='" + introBody + '\'' +
+                ", introReldes='" + introReldes + '\'' +
+                '}';
+    }
 }
