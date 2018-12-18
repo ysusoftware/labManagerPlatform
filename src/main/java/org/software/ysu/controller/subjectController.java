@@ -47,4 +47,9 @@ public class subjectController {
         subjectService.updateSubject(subject);
         return "success";
     }
+    @RequestMapping("subjectsAll.do")
+    public List<Subject>getallSubjects(){
+        List<Subject>subjects=subjectService.showSubjects(new SubjectExample());
+        return subjects;
+    }
 }

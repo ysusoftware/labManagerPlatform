@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../../js/vue.min.js"></script>
+<script charset="utf-8" src="../../kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="../../kindeditor/lang/zh_CN.js"></script>
+<script src="../../js/jquery.cookie.js"></script>
+<textarea id="editorBody" name="content" style="width:700px;height:300px;">
+                             <!--&lt;strong&gt;HTML内容&lt;/strong&gt;-->
+                             </textarea>
+<script>
+    KindEditor.ready(function (K) {
+        var editor = K.create('#editorBody', {
+            uploadJson: "http://localhost:8080/introController/IntroBodyPicUpload.do?labUserCookie="+$.cookie("labUserCookie"),
+            allowFileManager: true,
+            filePostName: 'file',//跟服务端参数对应
+            afterUpload: function () {
+                this.sync();
+            }, //图片上传后，将上传内容同步到textarea中
+            afterBlur: function () {
+                this.sync();
+            },   ////失去焦点时，将上传内容同步到textarea中
+        });
+    });
+</script>
+</body>
+</html>

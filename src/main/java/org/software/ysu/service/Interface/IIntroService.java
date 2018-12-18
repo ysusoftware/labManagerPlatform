@@ -17,4 +17,5 @@ public interface IIntroService {
     public int delIntro(int id);
     public int updateIntro(IntroductionWithBLOBs introduction);
     public int countIntro(IntroductionExample introductionExample);
+    public IntroductionWithBLOBs getIntroById(Integer id);
 }

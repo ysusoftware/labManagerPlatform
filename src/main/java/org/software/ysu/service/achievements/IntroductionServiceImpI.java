@@ -44,4 +44,9 @@ public class IntroductionServiceImpI implements IIntroService {
     public int countIntro(IntroductionExample introductionExample) {
         return (int)introductionMapper.countByExample(introductionExample);
     }
+
+    @Override
+    public IntroductionWithBLOBs getIntroById(Integer id) {
+        return introductionMapper.selectByPrimaryKey(id);
+    }
 }
