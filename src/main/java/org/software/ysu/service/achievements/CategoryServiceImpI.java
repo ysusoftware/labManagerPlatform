@@ -20,4 +20,14 @@ public class CategoryServiceImpI implements ICategoryService {
         example.createCriteria().andCategoryNameLike("%"+categoryName+"%");
        return  categoryMapper.selectByExample(example);
     }
+
+    @Override
+    public List<Category> showCategory(CategoryExample example) {
+        return categoryMapper.selectByExample(example);
+    }
+
+    @Override
+    public int addCategory(Category category) {
+        return categoryMapper.insert(category);
+    }
 }
