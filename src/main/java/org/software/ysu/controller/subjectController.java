@@ -3,6 +3,7 @@ package org.software.ysu.controller;
 
 
 import org.software.ysu.pojo.*;
+import org.software.ysu.service.Interface.IIntroService;
 import org.software.ysu.service.Interface.ISubjectService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,8 @@ import java.util.List;
 public class subjectController {
     @Resource
     ISubjectService subjectService;
+    @Resource
+    IIntroService introService;
 
     @RequestMapping("subjectsShow.do")
     public tableResponse getSubjects(Page page) {
@@ -51,5 +54,38 @@ public class subjectController {
     public List<Subject>getallSubjects(){
         List<Subject>subjects=subjectService.showSubjects(new SubjectExample());
         return subjects;
+    }
+    @RequestMapping("subjectAdd.do")
+    public String addSubject(Subject subject){
+        //判断是否有重名项目
+        SubjectExample subjectExample=new SubjectExample();
+        subjectExample.createCriteria().andSubjectNameEqualTo(subject.getSubjectName());
+        List<Subject>subjects=subjectService.showSubjects(subjectExample);
+        if(!subjects.isEmpty()){
+            return "repeat";
+        }else{
+            System.out.println("nothing find");
+        }
+        int i=subjectService.addSubject(subject);
+        if(i>0){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+    @RequestMapping("subjectDel.do")
+    public String delSubject(int subjectId){
+        //删除subject表
+        int i=subjectService.delSubject(subjectId);
+        if(i==0) {
+            return "fail";
+        }
+        //删除intro表
+        IntroductionExample introductionExample=new IntroductionExample();
+        introductionExample.createCriteria().andSubjectIdEqualTo(subjectId);
+        int j=introService.delIntroByExample(introductionExample);
+        //删除photo表
+//        int j=
+       return "success";
     }
 }

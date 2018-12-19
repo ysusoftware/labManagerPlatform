@@ -1,5 +1,6 @@
 package org.software.ysu.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
@@ -58,5 +59,22 @@ public class fileController {
         Client client = new Client();
         WebResource webresource = client.resource(serverPicUrl + url);
         webresource.delete(serverPicUrl + url);
+    }
+    static public void showFile(String baseUrl){
+//        Client client = new Client();
+//        WebResource webresource = client.resource(serverPicUrl + url);
+//        webresource.get(serverPicUrl + url);
+    }
+    static String kindlResponse(String fileUrl){
+        JSONObject json = new JSONObject();
+        if (fileUrl != null) {
+            json.put("error", 0);
+            json.put("url", serverPicUrl + fileUrl);
+        } else {
+            json.put("error", 1);
+            json.put("message", "上传错误");
+        }
+        return json.toJSONString();
+
     }
 }

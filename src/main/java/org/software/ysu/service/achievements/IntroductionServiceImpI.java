@@ -49,4 +49,9 @@ public class IntroductionServiceImpI implements IIntroService {
     public IntroductionWithBLOBs getIntroById(Integer id) {
         return introductionMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public int delIntroByExample(IntroductionExample example) {
+        return introductionMapper.deleteByExample(example);
+    }
 }
