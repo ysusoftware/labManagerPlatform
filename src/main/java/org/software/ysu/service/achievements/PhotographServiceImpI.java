@@ -26,8 +26,19 @@ public class PhotographServiceImpI implements IPhotographService {
     }
 
     @Override
-    public List<Photograph> selectAll() {
+    public int remove(int photoId) {
+        return photographMapper.deleteByPrimaryKey(photoId);
+    }
+
+    @Override
+    public List<Photograph> selectAll(PhotographExample example) {
+        return photographMapper.selectByExampleWithBLOBs(example);
+    }
+
+    @Override
+    public List<Photograph> selectByDes(String photoDes) {
         PhotographExample example=new PhotographExample();
+        example.createCriteria().andPhotoDesLike(photoDes);
         return photographMapper.selectByExampleWithBLOBs(example);
     }
 }
