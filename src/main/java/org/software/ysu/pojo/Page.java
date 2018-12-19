@@ -16,4 +16,14 @@ public class Page {
     private String context;
     private Integer withPage=0;
 
+    @Override
+    public String toString() {
+        return "Page{" +
+                "page=" + page +
+                ", limit=" + limit +
+                ", condition='" + condition + '\'' +
+                ", context='" + context + '\'' +
+                ", withPage=" + withPage +
+                '}';
+    }
 }

@@ -1,6 +1,7 @@
 package org.software.ysu.controller;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.software.ysu.pojo.Introduction;
 import org.software.ysu.pojo.User;
 import org.software.ysu.service.Interface.IUserService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,12 @@ public class userController {
             user.setUserLastdate(new Date());
             userService.addUser(user);
         }
+        return "success";
+    }
+    @RequestMapping("cacheDel.do")
+    public String delCache(){
+        //清理introduction表的缓存
+        // pass
         return "success";
     }
 

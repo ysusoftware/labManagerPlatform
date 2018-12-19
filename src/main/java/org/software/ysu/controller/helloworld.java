@@ -62,7 +62,6 @@ public class helloworld {
     }
     @RequestMapping(value = "testUpload.do",method = RequestMethod.POST)
     public layuiResponse testUpload(@RequestParam(value = "file") MultipartFile logoTest){
-
         String fileUrl=fileController.uploadFile("logo",logoTest);
         layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
         return layuiResponse;
