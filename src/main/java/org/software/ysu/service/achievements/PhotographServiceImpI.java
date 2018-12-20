@@ -7,6 +7,8 @@ import org.software.ysu.service.Interface.IPhotographService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 @Service
 public class PhotographServiceImpI implements IPhotographService {
 
@@ -21,5 +23,22 @@ public class PhotographServiceImpI implements IPhotographService {
     @Override
     public int modify(Photograph photograph) {
         return photographMapper.updateByPrimaryKey(photograph);
+    }
+
+    @Override
+    public int remove(int photoId) {
+        return photographMapper.deleteByPrimaryKey(photoId);
+    }
+
+    @Override
+    public List<Photograph> selectAll(PhotographExample example) {
+        return photographMapper.selectByExampleWithBLOBs(example);
+    }
+
+    @Override
+    public List<Photograph> selectByDes(String photoDes) {
+        PhotographExample example=new PhotographExample();
+        example.createCriteria().andPhotoDesLike(photoDes);
+        return photographMapper.selectByExampleWithBLOBs(example);
     }
 }

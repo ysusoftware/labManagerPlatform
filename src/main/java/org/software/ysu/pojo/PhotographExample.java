@@ -173,6 +173,10 @@ public class PhotographExample {
             addCriterion("photo_url is not null");
             return (Criteria) this;
         }
+        public Criteria andPhotoDesLike(String value) {
+            addCriterion("photo_des like", value, "photoDes");
+            return (Criteria) this;
+        }
 
         public Criteria andPhotoUrlEqualTo(String value) {
             addCriterion("photo_url =", value, "photoUrl");

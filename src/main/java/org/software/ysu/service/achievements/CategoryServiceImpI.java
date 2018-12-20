@@ -15,9 +15,19 @@ public class CategoryServiceImpI implements ICategoryService {
     @Autowired
     CategoryMapper categoryMapper;
     @Override
-    public List<Category> selectCategory(String categoryName) {
+    public List<Category> selectCategoryByName(String categoryName) {
         CategoryExample example=new CategoryExample();
         example.createCriteria().andCategoryNameLike("%"+categoryName+"%");
        return  categoryMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<Category> showCategory(CategoryExample example) {
+        return categoryMapper.selectByExample(example);
+    }
+
+    @Override
+    public int addCategory(Category category) {
+        return categoryMapper.insert(category);
     }
 }

@@ -51,7 +51,7 @@ public class helloworld {
     @RequestMapping("testCategory.do")
     public List<Category> testCategory() {
         String str="据";
-        List<Category> list=categoryService.selectCategory(str);
+        List<Category> list=categoryService.selectCategoryByName(str);
         return list;
     }
     @RequestMapping("img.do")

@@ -23,25 +23,27 @@ public class loginInterceptor implements HandlerInterceptor {
         String labUserCookie = httpServletRequest.getParameter("labUserCookie");
         if (url.contains("login/login")) {
             return true;
-        } else if (url.contains("introController")) {
-            if (labUserCookie == null) {
-                httpServletResponse.getWriter().print("{\"info\":\"404\"}");
-                return false;
-            }
-            if (labUserCookie.isEmpty()) {
-                httpServletResponse.getWriter().print("{\"info\":\"404\"}");
-                return false;
-            }
-            //判断是否为intro的文件上传
-            if ((loginController.UserMap != null && loginController.UserMap.containsKey(labUserCookie)) ||
-                    (loginController.AdminMap != null && loginController.AdminMap.containsKey(labUserCookie)))
-            {
-                return true;
-            }else{
-                httpServletResponse.getWriter().print("{\"info\":\"404\"}");
-                return false;
-            }
-        } else if (sendUrl.contains("index2") || sendUrl.contains("introductionShow")) {
+        }
+//        else if (url.contains("introController")) {
+//            if (labUserCookie == null) {
+//                httpServletResponse.getWriter().print("{\"info\":\"404\"}");
+//                return false;
+//            }
+//            if (labUserCookie.isEmpty()) {
+//                httpServletResponse.getWriter().print("{\"info\":\"404\"}");
+//                return false;
+//            }
+//            //判断是否为intro的文件上传
+//            if ((loginController.UserMap != null && loginController.UserMap.containsKey(labUserCookie)) ||
+//                    (loginController.AdminMap != null && loginController.AdminMap.containsKey(labUserCookie)))
+//            {
+//                return true;
+//            }else{
+//                httpServletResponse.getWriter().print("{\"info\":\"404\"}");
+//                return false;
+//            }
+//        }
+        else if (sendUrl.contains("index2") || sendUrl.contains("introductionShow")) {
             if (labUserCookie == null) {
                 httpServletResponse.getWriter().print("{\"info\":\"404\"}");
                 return false;

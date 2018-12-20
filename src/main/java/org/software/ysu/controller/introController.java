@@ -24,7 +24,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @RestController
-@RequestMapping("introController")
+@RequestMapping("intro")
 public class introController {
     @Resource
     IIntroService introService;
@@ -44,13 +44,12 @@ public class introController {
     }
 
     /**
-     * @param introduction
      * @param picFile
      * @return
      * @description 这个方法上传的是项目文章的预览图和大图（整体图）
      */
     @RequestMapping("introPicUpload.do")
-    public layuiResponse uploadPic(IntroductionWithBLOBs introduction, @RequestParam(value="file")MultipartFile picFile){
+    public layuiResponse uploadPic(@RequestParam(value="file")MultipartFile picFile){
         String fileUrl=fileController.uploadFile("introPic",picFile);
         layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
         return layuiResponse;
@@ -58,16 +57,7 @@ public class introController {
     @RequestMapping("IntroBodyPicUpload.do")
     public String uploadIntroBodyPic(@RequestParam(value = "file") MultipartFile picFile) {
         String fileUrl = fileController.uploadFile("introBodyPic", picFile);
-        String url = "";
-        JSONObject json = new JSONObject();
-        if (fileUrl != null) {
-            json.put("error", 0);
-            json.put("url", fileController.serverPicUrl + fileUrl);
-        } else {
-            json.put("error", 1);
-            json.put("message", "上传错误");
-        }
-        return json.toJSONString();
+        return fileController.kindlResponse(fileUrl);
     }
 
     @RequestMapping("introAdd.do")
@@ -104,11 +94,11 @@ public class introController {
         introduction.setIntroCreatetime(oldIntro.getIntroCreatetime());
         introduction.setIntroUpdatetime(new Date());
         //判断是否需要文件重传
-        if(!introduction.getIntroPicbig().equals(introduction.getIntroPicbig())){
+        if(!oldIntro.getIntroPicbig().equals(introduction.getIntroPicbig())){
             //文件已经上除了，所以只需要删除老文件
             fileController.delFile(oldIntro.getIntroPicbig());
         }
-        if(!introduction.getIntroPicdefault().equals(introduction.getIntroPicdefault())){
+        if(!oldIntro.getIntroPicdefault().equals(introduction.getIntroPicdefault())){
             //文件已经上除了，所以只需要删除老文件
             fileController.delFile(oldIntro.getIntroPicdefault());
         }
