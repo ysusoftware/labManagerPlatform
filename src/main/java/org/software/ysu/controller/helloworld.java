@@ -40,12 +40,12 @@ public class helloworld {
         return users;
     }
     @ResponseBody
-    @RequestMapping("testCategory.do")
-    public List<Category> testCategory() {
-        String str="据";
-        List<Category> list=categoryService.selectCategory(str);
-        return list;
-    }
+//    @RequestMapping("testCategory.do")
+//    public List<Category> testCategory() {
+//        String str="据";
+//        List<Category> list=categoryService.selectCategory(str);
+//        return list;
+//    }
     @RequestMapping("img.do")
     public String img() {
         return "ImgTest";
