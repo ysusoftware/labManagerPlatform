@@ -39,17 +39,16 @@ public class loginController {
         return AdminMap.get(labUserCookie);
     }
     @RequestMapping("login.do")
-    public String login(HttpServletRequest request, String username, String password, String kaptcha){
+    public String login(HttpServletRequest request, String username, String password){
 
 //        String kaptchaExpected = (String) request.getSession()
 //                .getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 //        System.out.println(kaptchaExpected);
         String kaptchaExpected="";
-        kaptcha="";
+
         //验证码获取不到，原因可能是因为layui封装的submit提交没有被验证码的servlet处理定位到
         //首先判断验证码是否输入正确
-        if(kaptcha.equalsIgnoreCase(kaptchaExpected)){
-
+        //被我删了，不好用
             if(userService.loginUser(username,password)!=null){
                 User user=userService.loginUser(username,password);
                 user.setUserLastdate(new Date());
@@ -70,10 +69,6 @@ public class loginController {
                 //登录失败
                 return "fail";
             }
-        }
-        else{
-            return "wrong";
-        }
 
 
     }

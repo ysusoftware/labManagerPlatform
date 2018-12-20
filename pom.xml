@@ -176,5 +176,23 @@
             <version>${commons-lang3.version}</version>
         </dependency>
     </dependencies>
+    <packaging>war</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://47.105.187.18/manager/text</url>
+                    <username>ysu2015</username>
+                    <password>ysu2018</password>
+                    <update>true</update>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
 
 </project>
