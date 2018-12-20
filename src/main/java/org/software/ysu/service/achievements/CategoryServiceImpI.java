@@ -30,4 +30,14 @@ public class CategoryServiceImpI implements ICategoryService {
     public int addCategory(Category category) {
         return categoryMapper.insert(category);
     }
+
+    @Override
+    public int modifyCategory(Category category) {
+        return categoryMapper.updateByPrimaryKey(category);
+    }
+
+    @Override
+    public int removeCategory(int categoryId) {
+        return categoryMapper.deleteByPrimaryKey(categoryId);
+    }
 }

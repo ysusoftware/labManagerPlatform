@@ -9,4 +9,6 @@ public interface ICategoryService {
     public List<Category> selectCategoryByName(String categoryName);//条件查询
     public List<Category> showCategory(CategoryExample example);
     public int addCategory(Category category);
+    public int modifyCategory(Category category);
+    public int removeCategory(int  categoryId);
 }
