@@ -26,4 +26,30 @@ public class Page {
                 ", withPage=" + withPage +
                 '}';
     }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public String getContext(){return context;}
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 }
