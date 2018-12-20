@@ -1,6 +1,8 @@
 
 package org.software.ysu.controller;
 
+import org.software.ysu.dao.BlogMapper;
+import org.software.ysu.pojo.*;
 import org.software.ysu.pojo.*;
 import org.software.ysu.service.Interface.ICategoryService;
 import org.software.ysu.service.Interface.IPhotographService;
@@ -32,11 +34,17 @@ public class helloworld {
         return "list";
     }
 
+    @Resource
+    BlogMapper blogMapper;
 
 
     @RequestMapping("testUser.do")
     public List<User> testUser() {
         List<User>users=userService.showUser(new UserExample());
+        BlogExample blogExample=new BlogExample();
+        blogExample.createCriteria().andBlogIdEqualTo(1);
+        List<BlogWithBLOBs> blogWithBLOBs = blogMapper.selectByExampleWithBLOBs(blogExample);
+        blogWithBLOBs.get(0).getBlogDes();
         return users;
     }
     @ResponseBody
