@@ -176,5 +176,42 @@
             <version>${commons-lang3.version}</version>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>localhost</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <war.name>localhost</war.name>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${basedir}/src/main/resources</directory>
+                        <targetPath>${basedir}/src/main/webapp/WEB-INF/classes</targetPath>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+    <packaging>war</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://47.105.187.18/manager/text</url>
+                    <username>ysu2015</username>
+                    <password>ysu2018</password>
+                    <update>true</update>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
 
 </project>

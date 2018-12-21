@@ -70,7 +70,7 @@ public class loginInterceptor implements HandlerInterceptor {
             }
         }
 
-        if (!loginController.AdminMap.isEmpty()) {
+        if (!loginController.AdminMap.isEmpty()&&labUserCookie!=null) {
             String authority = loginController.AdminMap.get(labUserCookie);
             if (authority != null) {
                 return true;
