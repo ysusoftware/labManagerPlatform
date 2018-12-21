@@ -22,7 +22,8 @@ public class PhotographServiceImpI implements IPhotographService {
 
     @Override
     public int modify(Photograph photograph) {
-        return photographMapper.updateByPrimaryKey(photograph);
+
+        return photographMapper.updateByPrimaryKeyWithBLOBs(photograph);
     }
 
     @Override

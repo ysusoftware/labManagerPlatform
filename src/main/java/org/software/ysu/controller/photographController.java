@@ -28,12 +28,22 @@ public class photographController {
             example.createCriteria().andPhotoDesLike("%"+page.getContext()+"%");
         }
         List<Photograph> list = photographService.selectAll(example);
-        int tempMin = Math.min(list.size(), page.getPage() * page.getLimit() + 1);
-        List<Photograph> photoPages = new ArrayList<>();
-        for (int i = (page.getPage() - 1) * page.getLimit(); i < tempMin; i++) {
-            photoPages.add(list.get(i));
+        List<photographyShow> photoShow=new ArrayList<>();
+        for (Photograph photo:list) {
+            photographyShow photographyShow=new photographyShow();
+            photographyShow.setSubjectName(subjectService.selectByKey(photo.getSubjectId()).getSubjectName());
+            photographyShow.setPhotoUrl(photo.getPhotoUrl());
+            photographyShow.setPhotoDes(photo.getPhotoDes());
+            photographyShow.setPhotoId(photo.getPhotoId());
+            photographyShow.setSubjectId(photo.getSubjectId());
+            photoShow.add(photographyShow);
         }
-        tableResponse tableResponse = new tableResponse("0", "", list.size(), photoPages);
+        int tempMin = Math.min(photoShow.size(), page.getPage() * page.getLimit() + 1);
+        List<photographyShow> photoPages = new ArrayList<>();
+        for (int i = (page.getPage() - 1) * page.getLimit(); i < tempMin; i++) {
+            photoPages.add(photoShow.get(i));
+        }
+        tableResponse tableResponse = new tableResponse("0", "", photoShow.size(), photoPages);
         return tableResponse;
     }
     @ResponseBody
@@ -49,15 +59,20 @@ public class photographController {
     @ResponseBody
     @RequestMapping("PhotoOnload.do")
     public layuiResponse imgTest(@RequestParam(value = "file") MultipartFile img, Photograph photo) {
-        String fileUrl=fileController.uploadFile("achievement",img);
-        StringBuilder URL=new StringBuilder();
-        URL.append("http://47.105.187.18/pictures/");
-        URL.append(fileUrl);
-        photo.setPhotoUrl(URL.toString());
-        int r=photographService.addPhoto(photo);
-        System.out.println(r+"------------"+fileUrl);
-        layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
-        return layuiResponse;
+        if(photo.getSubjectId()==null || photo.getPhotoDes()==null){
+            layuiResponse layuiResponse=new layuiResponse("1","","defeat");
+            return layuiResponse;
+        }else {
+            String fileUrl = fileController.uploadFile("achievement", img);
+            StringBuilder URL = new StringBuilder();
+            URL.append("http://47.105.187.18/pictures/");
+            URL.append(fileUrl);
+            photo.setPhotoUrl(URL.toString());
+            int r = photographService.addPhoto(photo);
+            System.out.println(r + "------------" + fileUrl);
+            layuiResponse layuiResponse = new layuiResponse("0", "", fileUrl);
+            return layuiResponse;
+        }
     }
     @ResponseBody
     @RequestMapping("getData.do")//添加成果时获取项目列表
@@ -68,8 +83,10 @@ public class photographController {
     }
     @RequestMapping("photoEdit.do")
     public String editPhoto(Photograph photograph){
-        System.out.println(photograph.toString()+"-----------edit-----------");
+        System.out.println(photograph.getPhotoId()+"-----------edit-----------");
         photographService.modify(photograph);
+/*        List<Photograph> list=photographService.selectByDes(photograph.getPhotoDes());
+        System.out.println(list.get(0).getPhotoDes());*/
         return "success";
     }
 
