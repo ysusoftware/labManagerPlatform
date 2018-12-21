@@ -16,4 +16,7 @@ public interface IUserService {
     public List<User> showUser(UserExample userExample); //显示user
     public User loginUser(String username,String password);//登录
     public int updateUser(User user);//修改user
+    public int delUser(int id);
+    public int countByExample(UserExample userExample);
+    public User getUserById(int id);
 }

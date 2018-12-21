@@ -1,6 +1,7 @@
 package org.software.ysu.service.achievements;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.software.ysu.dao.SubjectMapper;
 import org.software.ysu.dao.UserMapper;
 import org.software.ysu.pojo.User;
 import org.software.ysu.pojo.UserExample;
@@ -44,6 +45,21 @@ public class UserServiceImpI implements IUserService {
     public int updateUser(User user) {
         userMapper.updateByPrimaryKeySelective(user);
         return 1;
+    }
+
+    @Override
+    public int delUser(int id) {
+        return userMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int countByExample(UserExample userExample) {
+        return (int)userMapper.countByExample(userExample);
+    }
+
+    @Override
+    public User getUserById(int id){
+        return userMapper.selectByPrimaryKey(id);
     }
 
 }

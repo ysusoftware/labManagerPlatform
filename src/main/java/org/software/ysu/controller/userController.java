@@ -1,14 +1,18 @@
 package org.software.ysu.controller;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.software.ysu.pojo.Introduction;
-import org.software.ysu.pojo.User;
+import org.software.ysu.pojo.*;
 import org.software.ysu.service.Interface.IUserService;
+import org.software.ysu.utils.DESUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Erisu
@@ -53,5 +57,75 @@ public class userController {
         // pass
         return "success";
     }
-
+    @RequestMapping("userShow.do")
+    public tableResponse getSubjects(Page page){
+        System.out.println("page="+page.toString());
+        UserExample userExample = new UserExample();
+        if (page.getContext() != null){
+            userExample.createCriteria().andUserNameLike("%" + page.getContext() + "%");
+        }
+        List<User> users=userService.showUser(userExample);
+        int tempMin=Math.min(users.size(),page.getPage() * page.getLimit()+1);
+        //前台真正显示的数据
+        List<User>userPages=new ArrayList<>();
+        for(int i=(page.getPage() - 1) * page.getLimit();i<tempMin;i++){
+            userPages.add(users.get(i));
+        }
+        tableResponse tableResponse=new tableResponse("0","",users.size(),userPages);
+        System.out.println(tableResponse.toString());
+        return tableResponse;
+    }
+    @RequestMapping("userEdit.do")
+    public String editUser(User user){
+        System.out.println(user.toString());
+        user.setUserPassword(DigestUtils.md5Hex(user.getUserPassword()));
+        userService.updateUser(user);
+        return "success";
+    }
+    @RequestMapping("editUserImage.do")
+    public String editUserImage(User user){
+        //System.out.println("beforeaaaaaaaaa:" + user.getUserId() + "  " + user.getUserImg()+ "   " + user.getUserDes());
+        userService.updateUser(user);
+        return "success";
+    }
+    @RequestMapping("userAll.do")
+    public List<User> getAllUsers(){
+        List<User> users = userService.showUser(new UserExample());
+        return users;
+    }
+    @RequestMapping("userAdd.do")
+    public String addUser(User user){
+        user.setUserPassword(DigestUtils.md5Hex(user.getUserPassword()));
+        int i = userService.addUser(user);
+        if(i>0){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+    @RequestMapping("userDel.do")
+    public String delUser(int userId){
+        int i=userService.delUser(userId);
+        if(i==0) {
+            return "fail";
+        }else{
+            return "success";
+        }
+    }
+    @RequestMapping("userOnLoad.do")
+    public layuiResponse imgOnLoad(@RequestParam(value = "file") MultipartFile img){
+        String fileUrl=fileController.uploadFile("userImg",img);
+        StringBuilder URL=new StringBuilder();
+        URL.append("http://47.105.187.18/pictures/");
+        URL.append(fileUrl);
+        System.out.println("url=" + URL);
+        layuiResponse layuiResponse=new layuiResponse("0","",URL);
+        return layuiResponse;
+    }
+    @RequestMapping("getUserById.do")
+    public User getUserById(int userId){
+//        UserExample userExample = new UserExample();
+//        userExample.createCriteria().andUserIdEqualTo(userId);
+        return userService.getUserById(userId);
+    }
 }

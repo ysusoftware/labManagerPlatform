@@ -63,16 +63,18 @@ public class photographController {
             layuiResponse layuiResponse=new layuiResponse("1","","defeat");
             return layuiResponse;
         }else {
-            String fileUrl = fileController.uploadFile("achievement", img);
-            StringBuilder URL = new StringBuilder();
-            URL.append("http://47.105.187.18/pictures/");
-            URL.append(fileUrl);
-            photo.setPhotoUrl(URL.toString());
-            int r = photographService.addPhoto(photo);
-            System.out.println(r + "------------" + fileUrl);
-            layuiResponse layuiResponse = new layuiResponse("0", "", fileUrl);
+            String fileUrl=fileController.uploadFile("achievement",img);
+//        StringBuilder URL=new StringBuilder();
+//        URL.append("http://47.105.187.18/pictures/");
+//        URL.append(fileUrl);
+            photo.setPhotoUrl(fileUrl);
+            int r=photographService.addPhoto(photo);
+            System.out.println(r+"------------"+fileUrl);
+            layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
             return layuiResponse;
         }
+
+
     }
     @ResponseBody
     @RequestMapping("getData.do")//添加成果时获取项目列表
@@ -85,8 +87,6 @@ public class photographController {
     public String editPhoto(Photograph photograph){
         System.out.println(photograph.getPhotoId()+"-----------edit-----------");
         photographService.modify(photograph);
-/*        List<Photograph> list=photographService.selectByDes(photograph.getPhotoDes());
-        System.out.println(list.get(0).getPhotoDes());*/
         return "success";
     }
 

@@ -54,13 +54,13 @@ public class fileController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return fileName.toString();
+        return serverPicUrl+fileName.toString();
     }
 
     static public void delFile(String url) {
         Client client = new Client();
-        WebResource webresource = client.resource(serverPicUrl + url);
-        webresource.delete(serverPicUrl + url);
+        WebResource webresource = client.resource( url);
+        webresource.delete(url);
     }
     static public void showFile(String baseUrl){
 //        Client client = new Client();
