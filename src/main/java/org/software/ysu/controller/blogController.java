@@ -125,7 +125,7 @@ public class blogController {
         List<BlogWithBLOBs>blogPages=new ArrayList<>();
         for(int i=(page.getPage() - 1) * page.getLimit();i<tempMin;i++){
             BlogWithBLOBs blog=blogs.get(i);
-            blog.setBlogPicdefault(fileController.serverPicUrl+blog.getBlogPicdefault());
+//            blog.setBlogPicdefault(fileController.serverPicUrl+blog.getBlogPicdefault());
             blogPages.add(blog);
         }
         tableResponse tableResponse=new tableResponse("0","",blogs.size(),blogPages);

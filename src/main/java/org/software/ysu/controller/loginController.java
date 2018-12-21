@@ -31,8 +31,14 @@ public class loginController {
     public static Map<String,String> UserMap=new ConcurrentHashMap();
     @RequestMapping("quit.do")
     public String quit(String labUserCookie){
-        AdminMap.remove(labUserCookie);
-        return "success";
+        if(AdminMap.containsKey(labUserCookie)){
+            AdminMap.remove(labUserCookie);
+            return "success";
+        }else {
+            return "fail";
+        }
+
+
     }
     @RequestMapping("nothing.do")
     public String nothing(String labUserCookie){

@@ -50,10 +50,10 @@ public class photographController {
     @RequestMapping("PhotoOnload.do")
     public layuiResponse imgTest(@RequestParam(value = "file") MultipartFile img, Photograph photo) {
         String fileUrl=fileController.uploadFile("achievement",img);
-        StringBuilder URL=new StringBuilder();
-        URL.append("http://47.105.187.18/pictures/");
-        URL.append(fileUrl);
-        photo.setPhotoUrl(URL.toString());
+//        StringBuilder URL=new StringBuilder();
+//        URL.append("http://47.105.187.18/pictures/");
+//        URL.append(fileUrl);
+        photo.setPhotoUrl(fileUrl);
         int r=photographService.addPhoto(photo);
         System.out.println(r+"------------"+fileUrl);
         layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
