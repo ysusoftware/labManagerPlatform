@@ -18,4 +18,5 @@ public interface IUserService {
     public int updateUser(User user);//修改user
     public int delUser(int id);
     public int countByExample(UserExample userExample);
+    public User getUserById(int id);
 }
