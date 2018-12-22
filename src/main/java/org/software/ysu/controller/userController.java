@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -115,11 +117,11 @@ public class userController {
     @RequestMapping("userOnLoad.do")
     public layuiResponse imgOnLoad(@RequestParam(value = "file") MultipartFile img){
         String fileUrl=fileController.uploadFile("userImg",img);
-        StringBuilder URL=new StringBuilder();
-        URL.append("http://47.105.187.18/pictures/");
-        URL.append(fileUrl);
-        System.out.println("url=" + URL);
-        layuiResponse layuiResponse=new layuiResponse("0","",URL);
+        //StringBuilder URL=new StringBuilder();
+        //URL.append("http://47.105.187.18/pictures/");
+        //URL.append(fileUrl);
+        //System.out.println("url=" + URL);
+        layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
         return layuiResponse;
     }
     @RequestMapping("getUserById.do")
@@ -127,5 +129,29 @@ public class userController {
 //        UserExample userExample = new UserExample();
 //        userExample.createCriteria().andUserIdEqualTo(userId);
         return userService.getUserById(userId);
+    }
+    @RequestMapping("getNameByCookie.do") //不加.do也能用？
+    public String getNameByCookie(HttpServletRequest request){
+        //对于userAccount的解码与存储
+        String labUserCookie=request.getParameter("labUserCookie");
+        String baseAccount=DESUtils.decode(labUserCookie.substring(1,labUserCookie.length()-1));
+        baseAccount=baseAccount.substring(0,baseAccount.length()-5);
+        UserExample userExample=new UserExample();
+        userExample.createCriteria().andUserAccountEqualTo(baseAccount);
+        User user=userService.showUser(userExample).get(0);
+        return user.getUserName();
+    }
+    @RequestMapping("resetTime.do")
+    public void resetTime(HttpServletRequest request){
+        //对于userAccount的解码与存储
+        String labUserCookie=request.getParameter("labUserCookie");
+        String baseAccount=DESUtils.decode(labUserCookie.substring(1,labUserCookie.length()-1));
+        baseAccount=baseAccount.substring(0,baseAccount.length()-5);
+        UserExample userExample=new UserExample();
+        userExample.createCriteria().andUserAccountEqualTo(baseAccount);
+        User user=userService.showUser(userExample).get(0);
+        //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        user.setUserLastdate(new Date());
+        userService.updateUser(user);
     }
 }
