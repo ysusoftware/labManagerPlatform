@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@RequestMapping("assort")
 public class assortController {
     @Resource
     IAssortService assortService;

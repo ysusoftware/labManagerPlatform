@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("material")
 public class materialController {
     @Resource
     IMaterialService materialService;
