@@ -248,4 +248,19 @@
       assort_id = #{assortId,jdbcType=INTEGER}
     where material_id = #{materialId,jdbcType=INTEGER}
   </update>
+  <select id="search" resultMap="ResultMapWithBLOBs" parameterType="org.software.ysu.pojo.Material">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from material
+    <where>
+      <if test="assortId!=0">
+        and assort_id=#{assortId}
+      </if>
+      <if test="keyWord!=null">
+        and (material_name LIKE CONCAT(CONCAT('%',#{keyWord}),'%') or material_url LIKE CONCAT(CONCAT('%',#{keyWord}),'%') or material_des LIKE CONCAT(CONCAT('%',#{keyWord}),'%'))
+      </if>
+    </where>
+  </select>
 </mapper>

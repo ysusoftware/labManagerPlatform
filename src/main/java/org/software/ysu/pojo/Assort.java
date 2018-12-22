@@ -1,11 +1,15 @@
 package org.software.ysu.pojo;
 
+import java.util.List;
+
 public class Assort {
     private Integer id;
 
     private String assortName;
 
     private Integer assortParentid;
+
+    private List<Assort> AssortList;
 
     public Integer getId() {
         return id;
@@ -29,5 +33,13 @@ public class Assort {
 
     public void setAssortParentid(Integer assortParentid) {
         this.assortParentid = assortParentid;
+    }
+
+    public List<Assort> getAssortList() {
+        return AssortList;
+    }
+
+    public void setAssortList(List<Assort> assortList) {
+        AssortList = assortList;
     }
 }

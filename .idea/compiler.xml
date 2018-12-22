@@ -6,12 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="displayPlatform" />
         <module name="labDisplayPlatform" />
+        <module name="mangerPlatform" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="displayPlatform" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

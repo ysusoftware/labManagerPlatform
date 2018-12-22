@@ -33,4 +33,6 @@ public interface MaterialMapper {
     int updateByPrimaryKeyWithBLOBs(Material record);
 
     int updateByPrimaryKey(Material record);
+
+    List<Material> search(Material material);
 }

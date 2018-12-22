@@ -69,7 +69,7 @@ public class fileController {
         JSONObject json = new JSONObject();
         if (fileUrl != null) {
             json.put("error", 0);
-            json.put("url", serverPicUrl + fileUrl);
+            json.put("url",  fileUrl);
         } else {
             json.put("error", 1);
             json.put("message", "上传错误");

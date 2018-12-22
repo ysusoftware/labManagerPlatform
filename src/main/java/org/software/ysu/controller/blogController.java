@@ -112,6 +112,23 @@ public class blogController {
         return "success";
     }
 
+    /**
+     *
+     * @param blog
+     * @return
+     * @description 只是简单地修改blog的信息
+     */
+    @RequestMapping("blogEasyEdit.do")
+    public String easyeditIntro(BlogWithBLOBs blog) {
+        BlogWithBLOBs oldBlog = blogService.getblogById(blog.getBlogId());
+        oldBlog.setBlogUpdatetime(new Date());
+        //刷新信息
+        oldBlog.setBlogName(blog.getBlogName());
+        oldBlog.setBlogDes(blog.getBlogDes());
+        blogService.updateblog(oldBlog);
+        return "success";
+    }
+
     @RequestMapping("blogShow.do")
     public tableResponse getBlogs(Page page) {
         System.out.println("page="+page.toString());
