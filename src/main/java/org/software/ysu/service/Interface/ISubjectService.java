@@ -17,4 +17,5 @@ public interface ISubjectService {
     public List<Subject> showSubjects(SubjectExample subjectExample);
     public int delSubject(int id);
     public int countByExample(SubjectExample subjectExample);
+    public Subject selectByKey(int subjectId);
 }
