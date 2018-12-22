@@ -6,6 +6,9 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.http.HttpVersion;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -45,7 +48,6 @@ public class fileController {
         System.out.println(fileName.toString());
         Client client = new Client();
         WebResource webresource = client.resource(serverPicUrl + fileName.toString());
-
         try {
             webresource.put(String.class, file.getBytes());
         } catch (UniformInterfaceException | ClientHandlerException | IOException e) {

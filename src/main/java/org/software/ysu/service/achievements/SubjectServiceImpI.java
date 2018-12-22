@@ -43,4 +43,9 @@ public class SubjectServiceImpI implements ISubjectService {
     public int countByExample(SubjectExample subjectExample) {
         return (int)subjectMapper.countByExample(subjectExample);
     }
+
+    @Override
+    public Subject selectByKey(int subjectId) {
+        return subjectMapper.selectByPrimaryKey(subjectId);
+    }
 }

@@ -57,4 +57,9 @@ public class UserServiceImpI implements IUserService {
         return (int)userMapper.countByExample(userExample);
     }
 
+    @Override
+    public User getUserById(int id){
+        return userMapper.selectByPrimaryKey(id);
+    }
+
 }
