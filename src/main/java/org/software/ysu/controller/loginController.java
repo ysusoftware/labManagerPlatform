@@ -59,12 +59,12 @@ public class loginController {
 
     @RequestMapping("nothing.do")
     public String nothing(String labUserCookie) {
-        if (labUserCookie.substring(0, 1) == "1") {
-            return AdminMap.get(labUserCookie);
-        } else {
-            return UserMap.get(labUserCookie);
-        }
-
+//        if (labUserCookie.substring(0, 1) == "1") {
+//            return AdminMap.get(labUserCookie);
+//        } else {
+//            return UserMap.get(labUserCookie);
+//        }
+       return labUserCookie;
     }
 
     @RequestMapping("login.do")
