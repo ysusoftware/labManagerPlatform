@@ -7,6 +7,8 @@ public class IntroductionWithBLOBs extends Introduction {
 
     private String introReldes;
 
+    private String introDocument;
+
     public String getIntroDes() {
         return introDes;
     }
@@ -31,12 +33,11 @@ public class IntroductionWithBLOBs extends Introduction {
         this.introReldes = introReldes == null ? null : introReldes.trim();
     }
 
-    @Override
-    public String toString() {
-        return "IntroductionWithBLOBs{" +
-                "introDes='" + introDes + '\'' +
-                ", introBody='" + introBody + '\'' +
-                ", introReldes='" + introReldes + '\'' +
-                '}';
+    public String getIntroDocument() {
+        return introDocument;
+    }
+
+    public void setIntroDocument(String introDocument) {
+        this.introDocument = introDocument == null ? null : introDocument.trim();
     }
 }

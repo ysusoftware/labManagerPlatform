@@ -18,6 +18,7 @@
     <result column="intro_des" jdbcType="LONGVARCHAR" property="introDes" />
     <result column="intro_body" jdbcType="LONGVARCHAR" property="introBody" />
     <result column="intro_reldes" jdbcType="LONGVARCHAR" property="introReldes" />
+    <result column="intro_document" jdbcType="LONGVARCHAR" property="introDocument" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -82,7 +83,7 @@
     subject_id, intro_url, intro_picdefault, intro_picbig
   </sql>
   <sql id="Blob_Column_List">
-    intro_des, intro_body, intro_reldes
+    intro_des, intro_body, intro_reldes, intro_document
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="org.software.ysu.pojo.IntroductionExample" resultMap="ResultMapWithBLOBs">
     select
@@ -137,12 +138,14 @@
       intro_updateTime, user_id, user_name, 
       intro_relname, subject_id, intro_url, 
       intro_picdefault, intro_picbig, intro_des, 
-      intro_body, intro_reldes)
+      intro_body, intro_reldes, intro_document
+      )
     values (#{introId,jdbcType=INTEGER}, #{introTitle,jdbcType=VARCHAR}, #{introCreatetime,jdbcType=TIMESTAMP}, 
       #{introUpdatetime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
       #{introRelname,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER}, #{introUrl,jdbcType=VARCHAR}, 
       #{introPicdefault,jdbcType=VARCHAR}, #{introPicbig,jdbcType=VARCHAR}, #{introDes,jdbcType=LONGVARCHAR}, 
-      #{introBody,jdbcType=LONGVARCHAR}, #{introReldes,jdbcType=LONGVARCHAR})
+      #{introBody,jdbcType=LONGVARCHAR}, #{introReldes,jdbcType=LONGVARCHAR}, #{introDocument,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.software.ysu.pojo.IntroductionWithBLOBs">
     insert into introduction
@@ -189,6 +192,9 @@
       <if test="introReldes != null">
         intro_reldes,
       </if>
+      <if test="introDocument != null">
+        intro_document,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="introId != null">
@@ -232,6 +238,9 @@
       </if>
       <if test="introReldes != null">
         #{introReldes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introDocument != null">
+        #{introDocument,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -286,6 +295,9 @@
       <if test="record.introReldes != null">
         intro_reldes = #{record.introReldes,jdbcType=LONGVARCHAR},
       </if>
+      <if test="record.introDocument != null">
+        intro_document = #{record.introDocument,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -306,7 +318,8 @@
       intro_picbig = #{record.introPicbig,jdbcType=VARCHAR},
       intro_des = #{record.introDes,jdbcType=LONGVARCHAR},
       intro_body = #{record.introBody,jdbcType=LONGVARCHAR},
-      intro_reldes = #{record.introReldes,jdbcType=LONGVARCHAR}
+      intro_reldes = #{record.introReldes,jdbcType=LONGVARCHAR},
+      intro_document = #{record.introDocument,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -370,6 +383,9 @@
       <if test="introReldes != null">
         intro_reldes = #{introReldes,jdbcType=LONGVARCHAR},
       </if>
+      <if test="introDocument != null">
+        intro_document = #{introDocument,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where intro_id = #{introId,jdbcType=INTEGER}
   </update>
@@ -387,7 +403,8 @@
       intro_picbig = #{introPicbig,jdbcType=VARCHAR},
       intro_des = #{introDes,jdbcType=LONGVARCHAR},
       intro_body = #{introBody,jdbcType=LONGVARCHAR},
-      intro_reldes = #{introReldes,jdbcType=LONGVARCHAR}
+      intro_reldes = #{introReldes,jdbcType=LONGVARCHAR},
+      intro_document = #{introDocument,jdbcType=LONGVARCHAR}
     where intro_id = #{introId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.software.ysu.pojo.Introduction">

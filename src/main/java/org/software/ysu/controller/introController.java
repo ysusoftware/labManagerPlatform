@@ -57,7 +57,15 @@ public class introController {
     @RequestMapping("IntroBodyPicUpload.do")
     public String uploadIntroBodyPic(@RequestParam(value = "file") MultipartFile picFile) {
         String fileUrl = fileController.uploadFile("introBodyPic", picFile);
+        System.out.println("fileUrl="+fileUrl);
+        System.out.println(fileController.kindlResponse(fileUrl));
         return fileController.kindlResponse(fileUrl);
+    }
+    @RequestMapping("introDocumentUpload.do")
+    public layuiResponse uploadDocument(@RequestParam(value = "file")MultipartFile file){
+        String fileUrl=fileController.uploadFile("introDocument",file);
+        layuiResponse layuiResponse=new layuiResponse("0","",fileUrl);
+        return layuiResponse;
     }
 
     @RequestMapping("introAdd.do")

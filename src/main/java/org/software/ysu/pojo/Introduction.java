@@ -112,21 +112,4 @@ public class Introduction {
     public void setIntroPicbig(String introPicbig) {
         this.introPicbig = introPicbig == null ? null : introPicbig.trim();
     }
-
-    @Override
-    public String toString() {
-        return "Introduction{" +
-                "introId=" + introId +
-                ", introTitle='" + introTitle + '\'' +
-                ", introCreatetime=" + introCreatetime +
-                ", introUpdatetime=" + introUpdatetime +
-                ", userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", introRelname='" + introRelname + '\'' +
-                ", subjectId=" + subjectId +
-                ", introUrl='" + introUrl + '\'' +
-                ", introPicdefault='" + introPicdefault + '\'' +
-                ", introPicbig='" + introPicbig + '\'' +
-                '}';
-    }
 }
