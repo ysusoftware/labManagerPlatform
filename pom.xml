@@ -188,6 +188,7 @@
                     <username>ysu2015</username>
                     <password>ysu2018</password>
                     <update>true</update>
+                    <path>/managerPlatform</path>
                 </configuration>
             </plugin>
 

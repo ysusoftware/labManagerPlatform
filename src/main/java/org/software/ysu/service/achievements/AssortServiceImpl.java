@@ -49,4 +49,14 @@ public class AssortServiceImpl implements IAssortService {
         assortExample.createCriteria();
         return assortMapper.selectByExample(assortExample);
     }
+
+    @Override
+    public int addAssort(Assort assort) {
+        return assortMapper.insertSelective(assort);
+    }
+
+    @Override
+    public int editAssort(Assort assort) {
+        return assortMapper.updateByPrimaryKeySelective(assort);
+    }
 }

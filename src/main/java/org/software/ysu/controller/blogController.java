@@ -74,6 +74,8 @@ public class blogController {
         blog.setUserName(user.getUserName());
         blog.setBlogCreatetime(new Date());
         blog.setBlogUpdatetime(new Date());
+        String oldBody=blog.getBlogBody();
+        blog.setBlogBody(fileController.dealStr(oldBody));
         //调用service方法add
         blogService.addblog(blog);
         return "success";
@@ -94,6 +96,8 @@ public class blogController {
         blog.setUserName(oldBlog.getUserName());
         blog.setBlogCreatetime(oldBlog.getBlogCreatetime());
         blog.setBlogUpdatetime(new Date());
+        String oldBody=blog.getBlogBody();
+        blog.setBlogBody(fileController.dealStr(oldBody));
         //类别重定义
         CategoryExample categoryExample=new CategoryExample();
         categoryExample.createCriteria().andCategoryIdEqualTo(blog.getCategoryId());

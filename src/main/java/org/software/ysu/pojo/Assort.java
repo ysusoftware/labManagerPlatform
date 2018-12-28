@@ -9,7 +9,7 @@ public class Assort {
 
     private Integer assortParentid;
 
-    private List<Assort> AssortList;
+    private List<Assort> assortList;
 
     public Integer getId() {
         return id;
@@ -36,10 +36,20 @@ public class Assort {
     }
 
     public List<Assort> getAssortList() {
-        return AssortList;
+        return assortList;
     }
 
     public void setAssortList(List<Assort> assortList) {
-        AssortList = assortList;
+        this.assortList = assortList;
+    }
+
+    @Override
+    public String toString() {
+        return "Assort{" +
+                "id=" + id +
+                ", assortName='" + assortName + '\'' +
+                ", assortParentid=" + assortParentid +
+                ", assortList=" + assortList +
+                '}';
     }
 }

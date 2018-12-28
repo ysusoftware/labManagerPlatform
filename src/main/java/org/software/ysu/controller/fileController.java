@@ -79,4 +79,23 @@ public class fileController {
         return json.toJSONString();
 
     }
+    static String dealStr(String str) {
+        StringBuilder pathString = new StringBuilder(str);
+        int img1=-1;
+        while(pathString.indexOf("<img",img1+1)!=-1) {
+            img1 = pathString.indexOf("<img",img1+1);
+            int src1=pathString.indexOf("src",img1);
+            int doubleYin=pathString.indexOf("\"",src1);
+            if(pathString.charAt(doubleYin+1)=='h'&&pathString.charAt(doubleYin+5)==':') {
+                continue;
+            }
+            if(pathString.charAt(doubleYin+1)!='/') {
+                pathString.insert(doubleYin+1, "http://47.105.187.18/");
+            }
+            else {
+                pathString.insert(doubleYin+1, "http://47.105.187.18");
+            }
+        }
+        return pathString.toString();
+    }
 }

@@ -83,6 +83,8 @@ public class introController {
         introduction.setUserName(user.getUserName());
         introduction.setIntroCreatetime(new Date());
         introduction.setIntroUpdatetime(new Date());
+        String tempBody=introduction.getIntroBody();
+        introduction.setIntroBody(fileController.dealStr(tempBody));
         //调用service方法add
         introService.addIntro(introduction);
         return "success";
@@ -101,6 +103,8 @@ public class introController {
         introduction.setUserName(oldIntro.getUserName());
         introduction.setIntroCreatetime(oldIntro.getIntroCreatetime());
         introduction.setIntroUpdatetime(new Date());
+        String tempBody=introduction.getIntroBody();
+        introduction.setIntroBody(fileController.dealStr(tempBody));
         //判断是否需要文件重传
         if(!oldIntro.getIntroPicbig().equals(introduction.getIntroPicbig())){
             //文件已经上除了，所以只需要删除老文件

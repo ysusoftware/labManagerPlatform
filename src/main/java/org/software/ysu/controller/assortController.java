@@ -39,4 +39,14 @@ public class assortController {
     public List<Assort> getAssortList(){
         return assortService.getAssortList();
     }
+
+    @RequestMapping(value="addAssort.do",method = RequestMethod.POST)
+    public int addAssort(Assort assort){
+        return assortService.addAssort(assort);
+    }
+    @RequestMapping(value="editAssort.do",method=RequestMethod.POST)
+    public int editAssort(Assort assort){
+        System.out.println(assort);
+        return assortService.editAssort(assort);
+    }
 }
