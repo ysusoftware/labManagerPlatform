@@ -303,6 +303,10 @@ public class SubjectExample {
             addCriterion("subject_teacher not between", value1, value2, "subjectTeacher");
             return (Criteria) this;
         }
+        public Criteria andSubjectStudentLike(String value) {
+            addCriterion("subject_student like", value, "subjectStudent");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.software.ysu.dao.DatumMapper">
+  <resultMap id="BaseResultMap" type="org.software.ysu.pojo.Datum">
+    <id column="datum_id" jdbcType="INTEGER" property="datumId" />
+    <result column="datum_oldname" jdbcType="VARCHAR" property="datumOldname" />
+    <result column="datum_newname" jdbcType="VARCHAR" property="datumNewname" />
+    <result column="datum_lastdate" jdbcType="TIMESTAMP" property="datumLastdate" />
+    <result column="datum_user" jdbcType="VARCHAR" property="datumUser" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    datum_id, datum_oldname, datum_newname, datum_lastdate, datum_user, subject_id, subject_name
+  </sql>
+  <select id="selectByExample" parameterType="org.software.ysu.pojo.DatumExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from datum
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from datum
+    where datum_id = #{datumId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from datum
+    where datum_id = #{datumId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.software.ysu.pojo.DatumExample">
+    delete from datum
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.software.ysu.pojo.Datum">
+    insert into datum (datum_id, datum_oldname, datum_newname, 
+      datum_lastdate, datum_user, subject_id, 
+      subject_name)
+    values (#{datumId,jdbcType=INTEGER}, #{datumOldname,jdbcType=VARCHAR}, #{datumNewname,jdbcType=VARCHAR}, 
+      #{datumLastdate,jdbcType=TIMESTAMP}, #{datumUser,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER}, 
+      #{subjectName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.software.ysu.pojo.Datum">
+    insert into datum
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="datumId != null">
+        datum_id,
+      </if>
+      <if test="datumOldname != null">
+        datum_oldname,
+      </if>
+      <if test="datumNewname != null">
+        datum_newname,
+      </if>
+      <if test="datumLastdate != null">
+        datum_lastdate,
+      </if>
+      <if test="datumUser != null">
+        datum_user,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="subjectName != null">
+        subject_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="datumId != null">
+        #{datumId,jdbcType=INTEGER},
+      </if>
+      <if test="datumOldname != null">
+        #{datumOldname,jdbcType=VARCHAR},
+      </if>
+      <if test="datumNewname != null">
+        #{datumNewname,jdbcType=VARCHAR},
+      </if>
+      <if test="datumLastdate != null">
+        #{datumLastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datumUser != null">
+        #{datumUser,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectName != null">
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.software.ysu.pojo.DatumExample" resultType="java.lang.Long">
+    select count(*) from datum
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update datum
+    <set>
+      <if test="record.datumId != null">
+        datum_id = #{record.datumId,jdbcType=INTEGER},
+      </if>
+      <if test="record.datumOldname != null">
+        datum_oldname = #{record.datumOldname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datumNewname != null">
+        datum_newname = #{record.datumNewname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datumLastdate != null">
+        datum_lastdate = #{record.datumLastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datumUser != null">
+        datum_user = #{record.datumUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectId != null">
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjectName != null">
+        subject_name = #{record.subjectName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update datum
+    set datum_id = #{record.datumId,jdbcType=INTEGER},
+      datum_oldname = #{record.datumOldname,jdbcType=VARCHAR},
+      datum_newname = #{record.datumNewname,jdbcType=VARCHAR},
+      datum_lastdate = #{record.datumLastdate,jdbcType=TIMESTAMP},
+      datum_user = #{record.datumUser,jdbcType=VARCHAR},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      subject_name = #{record.subjectName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.software.ysu.pojo.Datum">
+    update datum
+    <set>
+      <if test="datumOldname != null">
+        datum_oldname = #{datumOldname,jdbcType=VARCHAR},
+      </if>
+      <if test="datumNewname != null">
+        datum_newname = #{datumNewname,jdbcType=VARCHAR},
+      </if>
+      <if test="datumLastdate != null">
+        datum_lastdate = #{datumLastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datumUser != null">
+        datum_user = #{datumUser,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectName != null">
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where datum_id = #{datumId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.software.ysu.pojo.Datum">
+    update datum
+    set datum_oldname = #{datumOldname,jdbcType=VARCHAR},
+      datum_newname = #{datumNewname,jdbcType=VARCHAR},
+      datum_lastdate = #{datumLastdate,jdbcType=TIMESTAMP},
+      datum_user = #{datumUser,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      subject_name = #{subjectName,jdbcType=VARCHAR}
+    where datum_id = #{datumId,jdbcType=INTEGER}
+  </update>
+</mapper>

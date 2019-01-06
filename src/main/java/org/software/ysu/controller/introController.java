@@ -70,6 +70,13 @@ public class introController {
 
     @RequestMapping("introAdd.do")
     public String addIntro(IntroductionWithBLOBs introduction, HttpServletRequest request) {
+        //查询当前项目是否已经存在intro
+        Integer subjectId=introduction.getSubjectId();
+        IntroductionExample introductionExample=new IntroductionExample();
+        introductionExample.createCriteria().andSubjectIdEqualTo(subjectId);
+        if(!introService.getIntros(introductionExample).isEmpty()){
+            return "repeat";
+        }
 
         //对于userAccount的解码与存储
         String labUserCookie=request.getParameter("labUserCookie");
@@ -98,6 +105,7 @@ public class introController {
     }
     @RequestMapping("introEdit.do")
     public String editIntro(IntroductionWithBLOBs introduction){
+        //修改项目简介
         IntroductionWithBLOBs oldIntro=introService.getIntroById(introduction.getIntroId());
         introduction.setUserId(oldIntro.getUserId());
         introduction.setUserName(oldIntro.getUserName());

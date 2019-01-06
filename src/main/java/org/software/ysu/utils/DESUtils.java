@@ -76,7 +76,7 @@ public class DESUtils {
 	}
 	
 	
-	public static void main(String[] args){
-		System.out.println(encode("我永远喜欢mea"));
-	}
+//	public static void main(String[] args){
+//		System.out.println(encode("我永远喜欢mea"));
+//	}
 }

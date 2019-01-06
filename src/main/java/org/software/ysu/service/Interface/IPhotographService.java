@@ -11,4 +11,5 @@ public interface IPhotographService {
     public int remove(int photoId);
     public List<Photograph> selectAll(PhotographExample example);
     public List<Photograph> selectByDes(String photoDes);
+    public int delPhoto(PhotographExample photographExample);
 }

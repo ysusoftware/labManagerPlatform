@@ -43,7 +43,7 @@ public class loginInterceptor implements HandlerInterceptor {
 //                return false;
 //            }
 //        }
-            else if (sendUrl.contains("index2") || sendUrl.contains("introductionAdd")) {
+            else if (sendUrl.contains("index2") || sendUrl.contains("introductionAdd")||sendUrl.contains("datum")) {
             if (labUserCookie == null) {
                 httpServletResponse.getWriter().print("{\"info\":\"404\"}");
                 return false;

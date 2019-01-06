@@ -42,4 +42,9 @@ public class PhotographServiceImpI implements IPhotographService {
         example.createCriteria().andPhotoDesLike(photoDes);
         return photographMapper.selectByExampleWithBLOBs(example);
     }
+
+    @Override
+    public int delPhoto(PhotographExample photographExample) {
+        return photographMapper.deleteByExample(photographExample);
+    }
 }

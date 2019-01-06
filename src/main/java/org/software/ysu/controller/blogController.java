@@ -153,4 +153,13 @@ public class blogController {
         System.out.println(tableResponse.toString());
         return tableResponse;
     }
+    @RequestMapping("blogDel.do")
+    public String delBlog(Integer blogId){
+        Blog blog=blogService.getblogById(blogId);
+        fileController.delFile(blog.getBlogPicbig());
+        fileController.delFile(blog.getBlogPicdefault());
+        blogService.delblog(blogId);
+        return "success";
+    }
+
 }
